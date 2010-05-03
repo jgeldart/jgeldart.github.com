@@ -1,0 +1,156 @@
+
+
+@font-face {
+	font-family: 'PTSansNarrow';
+	src: url('PT_Sans_Narrow.eot');
+	src: local('PT Sans Narrow'), local('PTSans-Narrow'), url('PT_Sans_Narrow.woff') format('woff'), url('PT_Sans_Narrow.ttf') format('truetype'), url('PT_Sans_Narrow.svg#PTSans-Narrow') format('svg');
+}
+
+@font-face {
+	font-family: 'PTSansCaption';
+  font-weight: bold;
+	src: url('PT_Sans_Caption_Bold.eot');
+	src: local('PT Sans Caption'), local('PTSans-CaptionBold'), url('PT_Sans_Caption_Bold.woff') format('woff'), url('PT_Sans_Caption_Bold.ttf') format('truetype'), url('PT_Sans_Caption_Bold.svg#PTSans-CaptionBold') format('svg');
+}
+
+@font-face {
+	font-family: 'PTSansCaption';
+	src: url('PT_Sans_Caption.eot');
+	src: local('PT Sans Caption'), local('PTSans-Caption'), url('PT_Sans_Caption.woff') format('woff'), url('PT_Sans_Caption.ttf') format('truetype'), url('PT_Sans_Caption.svg#PTSans-Caption') format('svg');
+}
+
+@font-face {
+	font-family: 'PTSans';
+  font-style: italic;
+  font-weight: bold;
+	src: url('PT_Sans_Bold_Italic.eot');
+	src: local('PT Sans'), local('PTSans-BoldItalic'), url('PT_Sans_Bold_Italic.woff') format('woff'), url('PT_Sans_Bold_Italic.ttf') format('truetype'), url('PT_Sans_Bold_Italic.svg#PTSans-BoldItalic') format('svg');
+}
+
+@font-face {
+	font-family: 'PTSans';
+  font-weight: bold;
+	src: url('PT_Sans_Bold.eot');
+	src: local('PT Sans'), local('PTSans-Bold'), url('PT_Sans_Bold.woff') format('woff'), url('PT_Sans_Bold.ttf') format('truetype'), url('PT_Sans_Bold.svg#PTSans-Bold') format('svg');
+}
+
+@font-face {
+	font-family: 'PTSans';
+  font-style: italic;
+	src: url('PT_Sans_Italic.eot');
+	src: local('PT Sans'), local('PTSans-Italic'), url('PT_Sans_Italic.woff') format('woff'), url('PT_Sans_Italic.ttf') format('truetype'), url('PT_Sans_Italic.svg#PTSans-Italic') format('svg');
+}
+
+@font-face {
+	font-family: 'PTSans';
+	src: url('PT_Sans.eot');
+	src: local('PT Sans'), local('PTSans-Regular'), url('PT_Sans.woff') format('woff'), url('PT_Sans.ttf') format('truetype'), url('PT_Sans.svg#PTSans-Regular') format('svg');
+}
+
+@font-face {
+	font-family: 'PTSansNarrow';
+  font-weight: bold;
+	src: url('PT_Sans_Narrow_Bold.eot');
+	src: local('PT Sans Narrow'), local('PTSans-NarrowBold'), url('PT_Sans_Narrow_Bold.woff') format('woff'), url('PT_Sans_Narrow_Bold.ttf') format('truetype'), url('PT_Sans_Narrow_Bold.svg#PTSans-NarrowBold') format('svg');
+}
+
+a {
+  color: #4983F8;
+  text-decoration: none !important;
+  border-bottom: 1px dotted #4983F8;
+}
+
+a:visited {
+  color: #64c;
+}
+
+a:hover {
+  color: #57d;
+}
+
+body {
+  font-family: "PTSans";
+  font-size: 90%;
+  padding: 0;
+  margin: 0;
+}
+
+body > article {
+  padding: 20px 128px 40px 256px;
+  background: url("joegeldart-watermark.png") top left no-repeat;
+}
+
+body > article > header {
+  margin-bottom: 32px;
+}
+
+body > article > header h1 {
+  font-size: 220%;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+body > article > header  h2 {
+  margin-top: 0;
+  color: #666;
+}
+
+body > article > header .author {
+  text-transform: uppercase;
+}
+
+body > article > footer > nav {
+  position: absolute;
+  top: 140px;
+  left: 36px;
+}
+
+body > article > footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body > article > footer li {
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-size: 80%;
+}
+
+figure {
+  margin: 2em 0 2em 0;
+  border-top: 1px solid #666;
+  
+}
+
+figure.code {
+  counter-increment: listings;
+}
+
+figure.specification {
+  counter-increment: specs;
+}
+
+figure.code code {
+  white-space:pre-wrap;
+}
+
+figcaption {
+  border-top: 1px solid #666;
+  display: block;
+  margin-top: 1em;
+  padding-top: 0.3em;
+  font-family: "PTSansCaption";
+  text-align: center;
+  font-size: 90%;
+  width: 100%;
+  color: #666;
+}
+
+.code > figcaption::before {
+  content: "Listing " counter(listings) ". ";
+}
+
+.specification > figcaption::before {
+  content: "Specification " counter(specs) ". ";
+}

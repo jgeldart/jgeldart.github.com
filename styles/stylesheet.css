@@ -229,33 +229,33 @@ section section header h4 span {
   color: #666 !important;
 }
 
-#skills section {
+#skills section, #interests section {
   clear: none;
   display: inline-block;
   border: none;
 }
-#skills section h3 {
+#skills section h3, #interests section h3 {
   font-size: 90%;
   font-family: "PTSansBold";
 }
-#skills section h3::after {
+#skills section h3::after, #interests section h3::after {
   content: ": ";
 }
-#skills section ul {
+#skills section ul, #interests section ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-#skills section ul li {
+#skills section ul li, #interests section ul li {
   display: inline;
   margin: 0;
   padding: 0;
   margin-right: -0.3em;
 }
-#skills section ul li+li::before {
+#skills section ul li+li::before, #interests section ul li+li::before {
   content: ", ";
 }
-#skills section ul li:last-child::before {
+#skills section ul li:last-child::before, #interests section ul li:last-child::before {
   content: " and ";
   padding-left: 0.3em;
 }

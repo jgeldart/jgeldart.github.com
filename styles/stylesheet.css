@@ -7,7 +7,7 @@
 }
 
 @font-face {
-	font-family: 'PTSansCaption';
+	font-family: 'PTSansCaptionBold';
   font-weight: bold;
 	src: url('PT_Sans_Caption_Bold.eot');
 	src: local('PT Sans Caption'), local('PTSans-CaptionBold'), url('PT_Sans_Caption_Bold.woff') format('woff'), url('PT_Sans_Caption_Bold.ttf') format('truetype'), url('PT_Sans_Caption_Bold.svg#PTSans-CaptionBold') format('svg');
@@ -20,7 +20,7 @@
 }
 
 @font-face {
-	font-family: 'PTSans';
+	font-family: 'PTSansBoldItalic';
   font-style: italic;
   font-weight: bold;
 	src: url('PT_Sans_Bold_Italic.eot');
@@ -28,14 +28,14 @@
 }
 
 @font-face {
-	font-family: 'PTSans';
+	font-family: 'PTSansBold';
   font-weight: bold;
 	src: url('PT_Sans_Bold.eot');
 	src: local('PT Sans'), local('PTSans-Bold'), url('PT_Sans_Bold.woff') format('woff'), url('PT_Sans_Bold.ttf') format('truetype'), url('PT_Sans_Bold.svg#PTSans-Bold') format('svg');
 }
 
 @font-face {
-	font-family: 'PTSans';
+	font-family: 'PTSansItalic';
   font-style: italic;
 	src: url('PT_Sans_Italic.eot');
 	src: local('PT Sans'), local('PTSans-Italic'), url('PT_Sans_Italic.woff') format('woff'), url('PT_Sans_Italic.ttf') format('truetype'), url('PT_Sans_Italic.svg#PTSans-Italic') format('svg');
@@ -43,12 +43,14 @@
 
 @font-face {
 	font-family: 'PTSans';
+  font-weight: normal;
+  font-style: normal;
 	src: url('PT_Sans.eot');
 	src: local('PT Sans'), local('PTSans-Regular'), url('PT_Sans.woff') format('woff'), url('PT_Sans.ttf') format('truetype'), url('PT_Sans.svg#PTSans-Regular') format('svg');
 }
 
 @font-face {
-	font-family: 'PTSansNarrow';
+	font-family: 'PTSansNarrowBold';
   font-weight: bold;
 	src: url('PT_Sans_Narrow_Bold.eot');
 	src: local('PT Sans Narrow'), local('PTSans-NarrowBold'), url('PT_Sans_Narrow_Bold.woff') format('woff'), url('PT_Sans_Narrow_Bold.ttf') format('truetype'), url('PT_Sans_Narrow_Bold.svg#PTSans-NarrowBold') format('svg');
@@ -75,7 +77,17 @@ body {
   margin: 0;
 }
 
+h1,h2,h3,h4,h5,h6 {
+  font-weight: normal;
+}
+
+p {
+  line-height: 1.7;
+  max-width: 50em;
+}
+
 body > article {
+  margin-top: 15px;
   padding: 20px 128px 40px 256px;
   background: url("joegeldart-watermark.png") top left no-repeat;
 }
@@ -96,13 +108,32 @@ body > article > header  h2 {
 }
 
 body > article > header .author {
+  display: run-in;
   text-transform: uppercase;
+}
+
+body > article > header .author::after {
+  content: ", ";
+}
+
+body > article > header .published {
+  margin-top: 10px;
+  text-transform: uppercase;
+  font-size: 80%;
+}
+
+body > article > header .published sup {
+  font-size: 80%;
 }
 
 body > article > footer > nav {
   position: absolute;
-  top: 140px;
-  left: 36px;
+  top: 170px;
+  left: 10px;
+  width: 96px;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+  padding: 10px 10px;
 }
 
 body > article > footer ul {
@@ -112,15 +143,21 @@ body > article > footer ul {
 }
 
 body > article > footer li {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-transform: uppercase;
+  font-size: 80%;
+}
+
+footer .copyright {
+  margin-top: 20px;
   font-size: 80%;
 }
 
 figure {
   margin: 2em 0 2em 0;
   border-top: 1px solid #666;
-  
+  background-color: #ddd;
+  background-color: rgba(73,131,248,0.02);
 }
 
 figure.code {
@@ -144,7 +181,7 @@ figcaption {
   text-align: center;
   font-size: 90%;
   width: 100%;
-  color: #666;
+  color: #444;
 }
 
 .code > figcaption::before {
@@ -153,4 +190,72 @@ figcaption {
 
 .specification > figcaption::before {
   content: "Specification " counter(specs) ". ";
+}
+
+section, header, footer {
+  clear: both;
+}
+
+/* CV Specific Things */
+
+article.cv > section {
+  margin-top: 2em;
+}
+article.cv > section h2 {
+  margin-bottom: 0em;
+}
+section section {
+  margin-bottom: 1em;
+  padding-top: 1em;
+}
+section section+section {
+  border-top: 1px solid #ddd;
+}
+section section p {
+  margin-top: 0;
+  font-size: 95%;
+}
+section section header h3 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+section section header h4 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #666 !important;
+  font-size: 110%;
+}
+section section header h4 span {
+  color: #666 !important;
+}
+
+#skills section {
+  clear: none;
+  display: inline-block;
+  border: none;
+}
+#skills section h3 {
+  font-size: 90%;
+  font-family: "PTSansBold";
+}
+#skills section h3::after {
+  content: ": ";
+}
+#skills section ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#skills section ul li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  margin-right: -0.3em;
+}
+#skills section ul li+li::before {
+  content: ", ";
+}
+#skills section ul li:last-child::before {
+  content: " and ";
+  padding-left: 0.3em;
 }

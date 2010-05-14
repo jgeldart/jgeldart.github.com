@@ -4,12 +4,16 @@
   prefix="dc: http://purl.org/dc/terms/
   foaf: http://xmlns.com/foaf/0.1/
   rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  xsd: http://www.w3.org/2001/XMLSchema#
   cc: http://creativecommons.org/ns#">
   <head>
     <title>Hypercode: Literate Linked Process</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="../styles/html5.css" />
     <link rel="stylesheet" type="text/css" href="../styles/stylesheet.css" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
     <article>
@@ -19,6 +23,7 @@
           <h2 property="dc:subject">Literate Linked Process</h2>
         </hgroup>
         <div class="author"><a href="http://www.joegeldart.com">Joe Geldart</a></div>
+        <div class="published" property="dc:issued" content="2010-05-02" datatype="xsd:dateTime">2<sup>nd</sup> May 2010</div>
       </header>
       <section id="sec-introduction">
         <header>
@@ -38,7 +43,7 @@
         not in the syntax, but rather it is in the conception. As with mathematics, a good problem is one
         which makes conception clearer, allowing us to understand and solve other problems.
         </p>
-        <p>
+        <p property="dc:descripton">
         This article introduces an attempt to realise the vision of programming contained within that
         essay. By combining linked data, linked process and literate programming, I propose a more humane
         programming system comprising a development method and a new linked process language. This is only

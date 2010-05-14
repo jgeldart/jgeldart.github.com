@@ -231,7 +231,6 @@ section section header h4 span {
 
 #skills section, #interests section {
   clear: none;
-  display: inline-block;
   border: none;
 }
 #skills section h3, #interests section h3 {

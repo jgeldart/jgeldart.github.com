@@ -17,19 +17,19 @@
     <![endif]-->
   </head>
   <body>
-    <article>
-      <header>
-        <hgroup>
+    <div class="article">
+      <div class="header">
+        <div class="hgroup">
           <h1 property="dc:title" content="Hypercode: Literate Linked Process">Hypercode</h1>
           <h2 property="dc:subject">Literate Linked Process</h2>
-        </hgroup>
+        </div>
         <div class="author"><a href="http://www.joegeldart.com">Joe Geldart</a></div>
         <div class="published" property="dc:issued" content="2010-05-02" datatype="xsd:dateTime">2<sup>nd</sup> May 2010</div>
-      </header>
-      <section id="sec-introduction">
-        <header>
+      </div>
+      <div class="section" id="sec-introduction">
+        <div class="header">
           <h2>Introduction</h2>
-        </header>
+        </div>
         <p>
         Yesterday, I read an <a href="http://groups.google.com/group/whits/browse_thread/thread/3af4fe682836f2d3/88dcaf2ccd55df8e" title="Hypercode">essay</a> by 
         <a href="http://inamidst.com/" title="Inamidst">Sean B Palmer</a> on his thoughts (and criticisms) 
@@ -52,11 +52,11 @@
         this space further, but I believe this captures my essential understanding of this fascinating 
         problem.
         </p>
-      </section>
-      <section id="sec-linkedprocess">
-        <header>
+      </div>
+      <div class="section" id="sec-linkedprocess">
+        <div class="header">
           <h2>A Brief Introduction to Linked Process</h2>
-        </header>
+        </div>
         <p>
         <a href="http://linkedprocess.org/Home.html">Linked Process</a> is the behavioural equivalent of
         the, currently, more common idea of <a href="http://linkeddata.org/">Linked Data</a>. Linked data
@@ -100,11 +100,11 @@
         literate programming to produce documents which are both human-readable specifications and
         testable realisations of those specifications. 
         </p>
-      </section>
-      <section id="sec-executable-specifications">
-        <header>
+      </div>
+      <div class="section" id="sec-executable-specifications">
+        <div class="header">
           <h2>Executable Specifications</h2>
-        </header>
+        </div>
         <p>
         A specification is, essentially, a description of the problem to be solved. Specifications
         can include many sorts of constraint. Some are purely functional, containing elaborate
@@ -158,7 +158,7 @@
         specification whilst the RDFa annotates this specification with an implementation. As an
         example, consider the following definition of a Fibonacci number.
         </p>
-        <figure class="specification">
+        <div class="figure specification">
           <blockquote>
           <h3>Fibonacci Numbers</h3>
           <p>
@@ -172,15 +172,15 @@
                 number, and the n-2<sup>th</sup> Fibonacci number.</li>
           </ul>
           </blockquote>
-          <figcaption>A specification for Fibonacci numbers.</figcaption>
-        </figure>
+          <div class="figcaption">A specification for Fibonacci numbers.</div>
+        </div>
         <p>
         To begin turning this specification into a linked process, we must first give it a URI by adding an
         <code>about</code> attribute. We may then add some basic metadata, such as the sort of executable
         unit being described by the specification (in this case it is a pure predicate) and the parameters
         it takes:
         </p>
-        <figure class="code">
+        <div class="figure code">
           <blockquote>
             <code>
 &lt;figure class="specification" typeof="prog:PurePredicate" id="fib" about="#fib" prefix="prog: http://www.example.com/hypercode/core.html#"&gt;
@@ -195,8 +195,8 @@
     ...
             </code>
           </blockquote>
-          <figcaption>Basic metadata for an executable unit.</figcaption>
-        </figure>
+          <div class="figcaption">Basic metadata for an executable unit.</div>
+        </div>
         <p>
         Of note in the above is the use of existing vocabularies, such as 
         <a href="http://dublincore.org/">Dublin Core</a>. One can freely annotate the specification with 
@@ -216,7 +216,7 @@
         executable unit depending on a set of conditionals. Let us annotate the specification to 
         implement the first two cases:
         </p>
-        <figure class="code">
+        <div class="figure code">
           <blockquote>
             <code>
 &lt;ul&gt;
@@ -257,8 +257,8 @@
   ...
             </code>
           </blockquote>
-          <figcaption>The first two cases in the Fibonacci specification.</figcaption>
-        </figure>
+          <div class="figcaption">The first two cases in the Fibonacci specification.</div>
+        </div>
         <p>
         Each case has a set of conditions; if <em>any</em> of these conditions are satisfied then the 
         case may execute. Execution procedes by finding a coherent ordering of <em>all</em> of the bodies.
@@ -277,7 +277,7 @@
         <p>
         Turning to the third case, we shall see an example of functional calling easing the specification:
         </p>
-        <figure class="code">
+        <div class="figure code">
           <blockquote>
             <code>
   &lt;li rel="prog:case"&gt;
@@ -321,8 +321,8 @@
 &lt;/ul&gt;
             </code>
           </blockquote>
-          <figcaption>The third case in the Fibonacci specification.</figcaption>
-        </figure>
+          <div class="figcaption">The third case in the Fibonacci specification.</div>
+        </div>
         <p>
         Other than its greater complexity, there is little new in this case apart from the use of
         a functional calling style. This allows the implementation to adhere to the structure of
@@ -335,7 +335,7 @@
         at the source code for this page, or run it through an <a href="http://www.w3.org/2007/08/pyRdfa/shadowextract?uri=http%3A%2F%2Fjgeldart.github.com%2Fessays%2Fhypercode-linked-process.html&format=turtle">RDFa extractor</a>, you will find 
         the executable definition.
         </p>
-        <figure class="specification" typeof="prog:PurePredicate" id="fib" about="#fib" prefix="prog: http://www.example.com/hypercode/core.html#">
+        <div class="figure specification" typeof="prog:PurePredicate" id="fib" about="#fib" prefix="prog: http://www.example.com/hypercode/core.html#">
           <blockquote>
             <h3 property="dc:title">Fibonacci Numbers</h3>
             <p>
@@ -420,8 +420,8 @@
               </li>
             </ul>
           </blockquote>
-          <figcaption>The completed specification for Fibonacci numbers.</figcaption>
-        </figure>
+          <div class="figcaption">The completed specification for Fibonacci numbers.</div>
+        </div>
 
         <p>
         Of course, we are not limited to just HTML. We could annotate equations written in MathML, for
@@ -431,11 +431,11 @@
         conception and realisation, and reduce the number of bugs resulting from the mental conversion of
         concepts.
         </p>
-      </section>
-      <section id="sec-tooling">
-        <header>
+      </div>
+      <div class="section" id="sec-tooling">
+        <div class="header">
           <h2>Tooling</h2>
-        </header>
+        </div>
         <p>
         Whilst I feel this way of writing programs as linked data annotations on specifications has a certain
         elegance, I believe this idea will really shine with good tool support. IDEs have become a common way
@@ -471,11 +471,11 @@
         by using linked data principles. I am sure there are many more ideas that I haven’t thought of 
         just waiting for someone out there to develop them.
         </p>
-      </section>
-      <section id="sec-living-code">
-        <header>
+      </div>
+      <div class="section" id="sec-living-code">
+        <div class="header">
           <h2>Living Code</h2>
-        </header>
+        </div>
         <p>
         By making specifications executable, we can allow for live specifications. By embedding a
         Javascript interpreter in the page, we could run our implementation, test it and also test the 
@@ -499,11 +499,11 @@
         A <code>GET</code> request on the document would yield a precise description of its parameters 
         and behaviour, which could be used in the matchmaking and orchestration process.
         </p>
-      </section>
-      <section id="sec-further-work">
-        <header>
+      </div>
+      <div class="section" id="sec-further-work">
+        <div class="header">
           <h2>Further Work</h2>
-        </header>
+        </div>
         <p>
         At the time of writing, this idea is less than 24 hours old so there is plenty of work to do. I need
         to define a vocabulary for expressing the executable behaviours. I need to define a formal semantics
@@ -515,20 +515,20 @@
         what I have worked on over the past ten years come together so nicely so I would like to thank 
         Sean for his provocative essay. If you are interested in the ideas here, please <a href="http://www.joegeldart.com/">contact me</a>.
         </p>
-      </section>
-      <footer>
-        <nav>
+      </div>
+      <div class="footer">
+        <div class="nav">
           <ul>
             <li><a href="http://twitter.com/arnia">Twitter</a></li>
             <li><a href="http://www.joegeldart.com/">Website</a></li>
             <li><a href="http://uk.linkedin.com/in/jgeldart">LinkedIn</a></li>
           </ul>
-        </nav>
+        </div>
         <p class="copyright" about="">
         Copyright &copy; <span rel="dc:creator"><a typeof="foaf:Person" rel="foaf:homepage" property="foaf:name" href="http://www.joegeldart.com/">Joe Geldart</a></span>, 2010. 
         Licenced under a <a rel="cc:license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons License</a>.
         </p>
-      </footer>
-    </article>
+      </div>
+    </div>
   </body>
 </html>

@@ -71,7 +71,7 @@ a:hover {
 }
 
 body {
-  font-family: "PTSans";
+  font-family: "PTSans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-size: 90%;
   padding: 0;
   margin: 0;
@@ -86,47 +86,47 @@ p {
   max-width: 50em;
 }
 
-body > article {
+body > .article {
   margin-top: 15px;
   padding: 20px 128px 40px 256px;
   background: url("joegeldart-watermark.png") top left no-repeat;
 }
 
-body > article > header {
+body > .article > .header {
   margin-bottom: 32px;
 }
 
-body > article > header h1 {
+body > .article > .header h1 {
   font-size: 220%;
   font-weight: bold;
   margin-bottom: 0;
 }
 
-body > article > header  h2 {
+body > .article > .header  h2 {
   margin-top: 0;
   color: #666;
 }
 
-body > article > header .author {
+body > .article > .header .author {
   display: run-in;
   text-transform: uppercase;
 }
 
-body > article > header .author::after {
+body > .article > .header .author::after {
   content: ", ";
 }
 
-body > article > header .published {
+body > .article > .header .published {
   margin-top: 10px;
   text-transform: uppercase;
   font-size: 80%;
 }
 
-body > article > header .published sup {
+body > .article > .header .published sup {
   font-size: 80%;
 }
 
-body > article > footer > nav {
+body > .article > .footer > .nav {
   position: absolute;
   top: 170px;
   left: 10px;
@@ -136,125 +136,125 @@ body > article > footer > nav {
   padding: 10px 10px;
 }
 
-body > article > footer ul {
+body > .article > .footer ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-body > article > footer li {
+body > .article > .footer li {
   margin-bottom: 6px;
   text-transform: uppercase;
   font-size: 80%;
 }
 
-footer .copyright {
+.footer .copyright {
   margin-top: 20px;
   font-size: 80%;
 }
 
-figure {
+.figure {
   margin: 2em 0 2em 0;
   border-top: 1px solid #666;
   background-color: #ddd;
   background-color: rgba(73,131,248,0.02);
 }
 
-figure.code {
+.figure.code {
   counter-increment: listings;
 }
 
-figure.specification {
+.figure.specification {
   counter-increment: specs;
 }
 
-figure.code code {
+.figure.code code {
   white-space:pre-wrap;
 }
 
-figcaption {
+.figcaption {
   border-top: 1px solid #666;
   display: block;
   margin-top: 1em;
   padding-top: 0.3em;
-  font-family: "PTSansCaption";
+  font-family: "PTSansCaption", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   text-align: center;
   font-size: 90%;
   width: 100%;
   color: #444;
 }
 
-.code > figcaption::before {
+.code > .figcaption::before {
   content: "Listing " counter(listings) ". ";
 }
 
-.specification > figcaption::before {
+.specification > .figcaption::before {
   content: "Specification " counter(specs) ". ";
 }
 
-section, header, footer {
+.section, .header, .footer {
   clear: both;
 }
 
 /* CV Specific Things */
 
-article.cv > section {
+.article.cv > .section {
   margin-top: 2em;
 }
-article.cv > section h2 {
+.article.cv > .section h2 {
   margin-bottom: 0em;
 }
-section section {
+.section .section {
   margin-bottom: 1em;
   padding-top: 1em;
 }
-section section+section {
+.section .section+.section {
   border-top: 1px solid #ddd;
 }
-section section p {
+.section .section p {
   margin-top: 0;
   font-size: 95%;
 }
-section section header h3 {
+.section .section .header h3 {
   margin-bottom: 0;
   margin-top: 0;
 }
-section section header h4 {
+.section .section .header h4 {
   margin-top: 0;
   margin-bottom: 0.5em;
   color: #666 !important;
   font-size: 110%;
 }
-section section header h4 span {
+.section .section .header h4 span {
   color: #666 !important;
 }
 
-#skills section, #interests section {
+#skills .section, #interests .section {
   clear: none;
   border: none;
 }
-#skills section h3, #interests section h3 {
+#skills .section h3, #interests .section h3 {
   font-size: 90%;
-  font-family: "PTSansBold";
+  font-family: "PTSansBold", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
-#skills section h3::after, #interests section h3::after {
+#skills .section h3::after, #interests .section h3::after {
   content: ": ";
 }
-#skills section ul, #interests section ul {
+#skills .section ul, #interests .section ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-#skills section ul li, #interests section ul li {
+#skills .section ul li, #interests .section ul li {
   display: inline;
   margin: 0;
   padding: 0;
   margin-right: -0.3em;
 }
-#skills section ul li+li::before, #interests section ul li+li::before {
+#skills .section ul li+li::before, #interests .section ul li+li::before {
   content: ", ";
 }
-#skills section ul li:last-child::before, #interests section ul li:last-child::before {
+#skills .section ul li:last-child::before, #interests .section ul li:last-child::before {
   content: " and ";
   padding-left: 0.3em;
 }

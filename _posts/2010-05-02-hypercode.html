@@ -1,0 +1,543 @@
+---
+title: Hypercode
+subtitle: Literate Linked Process
+layout: post
+---
+<section id="sec-introduction">
+  <header>
+    <h2>Introduction</h2>
+  </header>
+  <p>
+  Yesterday, I read an <a href="http://groups.google.com/group/whits/browse_thread/thread/3af4fe682836f2d3/88dcaf2ccd55df8e" title="Hypercode">essay</a> by 
+  <a href="http://inamidst.com/" title="Inamidst">Sean B Palmer</a> on his thoughts (and criticisms) 
+  regarding <a href="http://en.wikipedia.org/wiki/Literate_programming">literate programming</a>. 
+  The main thrust of his criticism is that literate programming is, all too often, used in the style
+  of a programming language tutorial. Rather than documenting the rationale behind the code, it
+  instead documents the boilerplate. This is attributed to a fundamental mismatch between the syntax
+  of natural language and the chaotic, woven nature of human thought.
+  </p>
+  <p>
+  The joy of programming for many, as this article rightly states, is solving problems. The joy is
+  not in the syntax, but rather it is in the conception. As with mathematics, a good problem is one
+  which makes conception clearer, allowing us to understand and solve other problems.
+  </p>
+  <p property="dcterms:descripton">
+  This article introduces an attempt to realise the vision of programming contained within that
+  essay. By combining linked data, linked process and literate programming, I propose a more humane
+  programming system comprising a development method and a new linked process language. This is only
+  a first attempt at a solution to this problem, and no doubt my opinions will change as I explore 
+  this space further, but I believe this captures my essential understanding of this fascinating 
+  problem.
+  </p>
+</section>
+<section id="sec-linkedprocess">
+  <header>
+    <h2>A Brief Introduction to Linked Process</h2>
+  </header>
+  <p>
+  <a href="http://linkedprocess.org/Home.html">Linked Process</a> is the behavioural equivalent of
+  the, currently, more common idea of <a href="http://linkeddata.org/">Linked Data</a>. Linked data
+  has begun to achieve a critical density on the Web with sites such as 
+  <a href="http://www.facebook.com/">Facebook</a>, the <a href="http://www.bbc.co.uk/">BBC</a>
+  and <a href="http://www.bestbuy.com/">Best Buy</a> exposing machine readable information embedded
+  within their existing HTML pages. Linked Process hopes to capitalise on this by exposing programs
+  as machine readable data over the Web. A linked process language would use the Web as its module 
+  system, and allow for orchestration and adaptation of behaviour in a decentralised fashion.
+  </p>
+  <p>
+  One of the first linked process languages was <a href="http://ripple.fortytwo.net/">Ripple</a>, a 
+  concatenative language using RDF as its data model. This language adopted a stack-based operational 
+  semantics, based on a stream of stacks model that was both familiar and powerful. The stream model 
+  allowed the language to exploit the non-determinism inherent in an open system like the Web. 
+  </p>
+  <p>
+  Ripple, however, was not the first language to attempt to provide an RDF expressed ‘bytecode’. The
+  <a href="http://groups.csail.mit.edu/haystack/">Haystack project</a> developed an a language called 
+  <a href="http://en.wikipedia.org/wiki/Adenine_(programming_language)">Adenine</a>, with a loosely
+  <a href="http://www.python.org">Python</a> based syntax, for expressing operations on their 
+  RDF-based internal data-model. The representation was, however, purely syntactic and did not
+  leverage either the semantics of RDF or the conceptual semantics of the developers.
+  </p>
+  <p>
+  A couple of years ago, I wrote a <a href="http://logcom.oxfordjournals.org/cgi/content/short/19/5/791" title="Category-based Equational Reasoning: An Approach to Ontology">paper</a>
+  exploring the possibility of expressing the semantics of RDF using 
+  <a href="http://en.wikipedia.org/wiki/Category_Theory">category theory</a>. This was motivated by 
+  Ripple, the <a href="http://www.cat-language.com/">Cat programming language</a> and my
+  research into <a href="http://sites.google.com/site/narswang/" title="Non-Axiomatic Reasoning System">higher-order uncertain logics</a>. 
+  Since that paper, I have been fascinated by the possibilities of linking research into web 
+  science with general research into category theory and, in particular, 
+  <a href="http://cseweb.ucsd.edu/~goguen/projs/inst.html">institution theory</a>. This is an area 
+  with a lot of potential, particularly if we can connect 
+  <a href="http://cseweb.ucsd.edu/~goguen/">Joseph Goguen</a>’s work on 
+  <a href="https://docs.google.com/viewer?url=http://cseweb.ucsd.edu/~goguen/pps/taspm.pdf">cognitive blends in terms of institutions</a> to the
+  idea of <a href="https://docs.google.com/viewer?url=http://events.linkeddata.org/ldow2008/papers/20-idehen-erling-linked-data-spaces.pdf">linked data spaces</a> and named graphs.
+  </p>
+  <p>
+  The remainder of this article looks at the potential for combining these ideas with those of
+  literate programming to produce documents which are both human-readable specifications and
+  testable realisations of those specifications. 
+  </p>
+</section>
+<section id="sec-executable-specifications">
+  <header>
+    <h2>Executable Specifications</h2>
+  </header>
+  <p>
+  A specification is, essentially, a description of the problem to be solved. Specifications
+  can include many sorts of constraint. Some are purely functional, containing elaborate
+  detail on the executable behaviour of a solution. Others are purely non-functional, and
+  simply describe the motivations behind the desire for a solution to the problem. Most
+  specifications are somewhere in the middle, combining some executable behaviour with 
+  business cases.
+  </p>
+  <p>
+  Recently, <a href="http://behaviour-driven.org/">Behaviour Driven Development</a> (BDD) has sought 
+  to formalise this balancing act. A specification is seen as a set of <em>features</em>. Each
+  feature consists of a business case, usually expressed as a user story, coupled with a set
+  of <em>scenarios</em> which turn that story into a testable narrative. There are a number
+  of popular BDD frameworks such as <a href="http://wiki.github.com/aslakhellesoy/cucumber">Cucumber</a>,
+  <a href="http://jbehave.org/">JBehave</a> and <a href="http://visionmedia.github.com/jspec/">jspec</a>.
+  </p>
+  <p>
+  These tools have a weakness, however, in that the implementation of the specification is
+  utterly distinct from its description. Acceptance test tools like <a href="http://fitnesse.org/">Fitnesse</a> 
+  attempt to solve this by providing a user interface that can link tests to source code files. This is
+  crude; you cannot see how a particular part of the specification is realised by a particular part of
+  the implementation. This reduces traceability of requirements, and requires that the specification,
+  including tests, be manually kept up-to-date with the implementation. In my experience in development,
+  writing code frequently alters the understanding of the problem itself; in fact, that is the most
+  enjoyable part of the process. These changes of understanding need to be manually percolated through
+  to the specification. This is error-prone, but necessary if the client is to be kept in the loop
+  on the development process.
+  </p>
+  <p>
+  On the Web, we navigate through a mind-boggling complex sea of information by looking at small
+  fragments at a time. These fragments, which we call pages, are connected together by hyperlinks
+  which can be navigated by a user, in their own time, to create a custom narrative exploration
+  of the available information. These links also express relational information, a fact exploited
+  by search engines such as Google, which may be used to tie together the meaning of the documents.
+  This is the key insight of linked data.
+  </p>
+  <p>
+  I propose viewing specifications as linked data and linked process combined. A specification is
+  then not only a description of a system in a human readable form, but also its realisation. When
+  necessary they can be viewed together, or separately, depending on what is needed. They exist on
+  the Web and can, therefore, exploit all the features and benefits of the Web architecture such as
+  decentralisation, openness and partiality of description. Since the specification and the 
+  implementation are fundamentally linked, changes to the specification may automatically change
+  the implementation, and vice versa. The specification is automatically and fundamentally in 
+  sync with the implementation at all times, and thus serves as accurate documentation of a
+  project.
+  </p>
+  <p>
+  Whilst many representations of a program are possible, probably the best (for this purpose) is
+  <a href="http://en.wikipedia.org/wiki/RDFa">RDFa</a> embedded in HTML. The HTML provides the 
+  specification whilst the RDFa annotates this specification with an implementation. As an
+  example, consider the following definition of a Fibonacci number.
+  </p>
+  <figure class="specification">
+    <blockquote>
+    <h3>Fibonacci Numbers</h3>
+    <p>
+    Given a natural number n, the n<sup>th</sup> Fibonacci number is defined as follows:
+    </p>
+
+    <ul>
+      <li>The 0<sup>th</sup> Fibonacci number is 0;</li>
+      <li>The 1<sup>st</sup> Fibonacci number is 1; and</li>
+      <li>If n >= 2, the n<sup>th</sup> Fibonacci number is the sum of the n-1<sup>th</sup> Fibonacci
+          number, and the n-2<sup>th</sup> Fibonacci number.</li>
+    </ul>
+    </blockquote>
+    <figcaption>A specification for Fibonacci numbers.</figcaption>
+  </figure>
+  <p>
+  To begin turning this specification into a linked process, we must first give it a URI by adding an
+  <code>about</code> attribute. We may then add some basic metadata, such as the sort of executable
+  unit being described by the specification (in this case it is a pure predicate) and the parameters
+  it takes:
+  </p>
+  <figure class="code">
+    <blockquote>
+      <code>  &lt;figure class="specification" typeof="prog:PurePredicate" id="fib" about="#fib" prefix="prog: http://www.example.com/hypercode/core.html#"&gt;
+&lt;blockquote&gt;
+&lt;h3 property="dc:title"&gt;Fibonacci Numbers&lt;/h3&gt;
+&lt;p&gt;
+&lt;span rel="prog:arg"&gt;&lt;span about="#fib-n" id="fib-n" typeof="prog:Argument"&gt;Given a 
+  &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core-types.html#Natural"&gt;natural number&lt;/a&gt; n&lt;/span&gt;&lt;/span&gt;, 
+&lt;span rel="prog:outputArg"&gt;&lt;span about="#fib-out" id="fib-out" typeof="prog:OutputArgument"&gt;the n&lt;sup&gt;th&lt;/sup&gt; Fibonacci number&lt;/span&gt;&lt;/span&gt; 
+is defined as follows:
+&lt;/p&gt;
+...
+      </code>
+    </blockquote>
+    <figcaption>Basic metadata for an executable unit.</figcaption>
+  </figure>
+  <p>
+  Of note in the above is the use of existing vocabularies, such as 
+  <a href="http://dublincore.org/">Dublin Core</a>. One can freely annotate the specification with 
+  any desired vocabularies. For example, each executable unit could be annotated with its own
+  licence in a machine readable fashion, or with its creator or with topics drawn from a thesaurus.
+  The only limit here is one’s imagination.
+  </p>
+  <p>
+  Also worth noting is the use of two different sorts of argument; plain arguments and output 
+  arguments. One of the ideas behind this programming language is that predicates may be used in 
+  both a <em>logical</em> and a <em>functional</em> fashion. If an argument is an output argument,
+  and there may be at most one of these for an executable unit, then the result of this, when used
+  functionally, is the value of the expression.
+  </p>
+  <p>
+  The body of the specification consists of a number of cases describing the behaviour of this
+  executable unit depending on a set of conditionals. Let us annotate the specification to 
+  implement the first two cases:
+  </p>
+  <figure class="code">
+    <blockquote>
+      <code>  &lt;ul&gt;
+&lt;li rel="prog:case"&gt;
+&lt;div typeof="prog:Case"&gt;
+The &lt;span rel="prog:condition"&gt;
+    &lt;span typeof="prog:equals"&gt;
+      &lt;span rel="prog:arg" resource="#fib-n"&gt;&lt;/span&gt;
+      &lt;span property="prog:arg"&gt;0&lt;/span&gt;&lt;sup&gt;th&lt;/sup&gt; Fibonacci number
+    &lt;/span&gt; 
+  &lt;/span&gt;
+&lt;span rel="prog:body"&gt;
+&lt;span typeof="prog:equals"&gt;
+  &lt;span rel="prog:arg" resource="#fib-out"&gt;&lt;/span&gt;
+  &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core.html#equals"&gt;is&lt;/a&gt;
+  &lt;span property="prog:arg"&gt;0&lt;/span&gt;;
+&lt;/span&gt;
+&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li rel="prog:case"&gt;
+&lt;div typeof="prog:Case"&gt;
+The &lt;span rel="prog:condition"&gt;
+    &lt;span typeof="prog:equals"&gt;
+      &lt;span rel="prog:arg" resource="#fib-n"&gt;&lt;/span&gt;
+      &lt;span property="prog:arg"&gt;1&lt;/span&gt;&lt;sup&gt;st&lt;/sup&gt; Fibonacci number
+    &lt;/span&gt;
+  &lt;/span&gt; 
+  &lt;span rel="prog:body"&gt;
+    &lt;span typeof="prog:equals"&gt;
+      &lt;span rel="prog:arg" resource="#fib-out"&gt;&lt;/span&gt;
+      &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core.html#equals"&gt;is&lt;/a&gt;
+      &lt;span property="prog:arg"&gt;1&lt;/span&gt;; and
+    &lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+...
+      </code>
+    </blockquote>
+    <figcaption>The first two cases in the Fibonacci specification.</figcaption>
+  </figure>
+  <p>
+  Each case has a set of conditions; if <em>any</em> of these conditions are satisfied then the 
+  case may execute. Execution procedes by finding a coherent ordering of <em>all</em> of the bodies.
+  In this case, with only a single body, this is trivial.
+  </p>
+  <p>
+  Calls of executable units are encoded using classes; each executable unit is effectively the class
+  of its executions. This allows execution traces to be represented as linked data, and thus we
+  can bring to bear all the same tools.
+  </p>
+  <section>
+    <header>
+      <h3>Subsection</h3>
+    </header>
+    <section>
+      <header>
+        <h4>Subsubsection</h4>
+      </header>
+    </section>
+  </section>
+  <section>
+    <header>
+      <h3>Subsection</h3>
+    </header>
+  </section>
+  <p>
+  It should be noted that, where possible, normal HTML hyperlinks are used to connect (for example)
+  arguments with their definitions, and executable units with their specifications. This allows for
+  normal hypertext usage, as discussed earlier.
+  </p>
+  <p>
+  Turning to the third case, we shall see an example of functional calling easing the specification:
+  </p>
+  <figure class="code">
+    <blockquote>
+      <code>  &lt;li rel="prog:case"&gt;
+&lt;div typeof="prog:Case"&gt; 
+&lt;span rel="prog:condition"&gt;
+If
+&lt;span typeof="prog:Predicate"&gt;
+  &lt;a rel="prog:arg" href="#fib-n"&gt;n&lt;/a&gt; 
+  &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core.html#gte"&gt;is greater than or equal to&lt;/a&gt; 
+  &lt;span property="prog:arg"&gt;2&lt;/span&gt;
+&lt;/span&gt;
+&lt;/span&gt; 
+&lt;span rel="prog:body"&gt; 
+then
+&lt;span typeof="prog:Predicate"&gt;
+  &lt;a rel="prog:arg" href="#fib-out"&gt;the n&lt;sup&gt;th&lt;/sup&gt; Fibonacci number&lt;/a&gt; 
+  &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core.html#equals"&gt;is&lt;/a&gt; 
+  &lt;span rel="prog:arg"&gt;the 
+    &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core.html#add"&gt;sum&lt;/a&gt; of 
+    &lt;span rel="prog:arg"&gt;the 
+      &lt;span rel="#fib-n"&gt;
+        &lt;a rel="prog:subtractand" href="#fib-n"&gt;n&lt;/a&gt; 
+        &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core.html#subtract"&gt;-&lt;/a&gt; 
+        &lt;span property="prog:subtractor"&gt;1&lt;/span&gt;th 
+      &lt;/span&gt;
+      &lt;a rel="rdf:type" href="#fib"&gt;Fibonacci number&lt;/a&gt;
+    &lt;/span&gt; and 
+    &lt;span rel="prog:arg"&gt;the 
+      &lt;span rel="#fib-n"&gt;
+        &lt;a rel="prog:subtractand" href="#fib-n"&gt;n&lt;/a&gt; 
+        &lt;a rel="rdf:type" href="http://www.example.com/hypercode/core.html#subtract"&gt;-&lt;/a&gt; 
+        &lt;span property="prog:subtractor"&gt;2&lt;/span&gt;th 
+      &lt;/span&gt;
+      &lt;a rel="rdf:type" href="#fib"&gt;Fibonacci number&lt;/a&gt;
+    &lt;/span&gt;.
+  &lt;/span&gt;
+&lt;/span&gt;
+&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+      </code>
+    </blockquote>
+    <figcaption>The third case in the Fibonacci specification.</figcaption>
+  </figure>
+  <p>
+  Other than its greater complexity, there is little new in this case apart from the use of
+  a functional calling style. This allows the implementation to adhere to the structure of
+  the specification more closely. I anticipate that in real specifications, a mixture of
+  a relational style and a functional style would be used to match the way the specification 
+  was written.
+  </p>
+  <p>
+  I will finish this section by providing the fully annotated specification. If you look 
+  at the source code for this page, or run it through an <a href="http://www.w3.org/2007/08/pyRdfa/shadowextract?uri=http%3A%2F%2Fjgeldart.github.com%2Fessays%2Fhypercode-linked-process.html&format=turtle">RDFa extractor</a>, you will find 
+  the executable definition.
+  </p>
+  <figure class="specification" typeof="prog:PurePredicate" id="fib" about="#fib" prefix="prog: http://www.example.com/hypercode/core.html#">
+    <blockquote>
+      <h3 property="dc:title">Fibonacci Numbers</h3>
+      <p>
+        <span rel="prog:arg"><span about="#fib-n" id="fib-n" typeof="prog:Argument">Given a 
+          <a rel="rdf:type" href="http://www.example.com/hypercode/core-types.html#Natural">natural number</a> n</span></span>, 
+        <span rel="prog:outputArg"><span about="#fib-out" id="fib-out" typeof="prog:OutputArgument">the n<sup>th</sup> Fibonacci number</span></span> 
+        is defined as follows:
+      </p>
+
+      <ul>
+        <li rel="prog:case">
+        <div typeof="prog:Case">
+          The <span rel="prog:condition">
+                <span typeof="prog:equals">
+                  <span rel="prog:arg" resource="#fib-n"></span>
+                  <span property="prog:arg">0</span><sup>th</sup> Fibonacci number
+                </span> 
+              </span>
+          <span rel="prog:body">
+            <span typeof="prog:equals">
+              <span rel="prog:arg" resource="#fib-out"></span>
+              <a rel="rdf:type" href="http://www.example.com/hypercode/core.html#equals">is</a>
+              <span property="prog:arg">0</span>;
+            </span>
+          </span>
+        </div>
+        </li>
+        <li rel="prog:case">
+        <div typeof="prog:Case">
+          The <span rel="prog:condition">
+                <span typeof="prog:equals">
+                  <span rel="prog:arg" resource="#fib-n"></span>
+                  <span property="prog:arg">1</span><sup>st</sup> Fibonacci number
+                </span>
+              </span> 
+              <span rel="prog:body">
+                <span typeof="prog:equals">
+                  <span rel="prog:arg" resource="#fib-out"></span>
+                  <a rel="rdf:type" href="http://www.example.com/hypercode/core.html#equals">is</a>
+                  <span property="prog:arg">1</span>; and
+                </span>
+              </span>
+        </div>
+        </li>
+        <li rel="prog:case">
+        <div typeof="prog:Case"> 
+          <span rel="prog:condition">
+            If
+            <span typeof="prog:Predicate">
+              <a rel="prog:arg" href="#fib-n">n</a> 
+              <a rel="rdf:type" href="http://www.example.com/hypercode/core.html#gte">is greater than or equal to</a> 
+              <span property="prog:arg">2</span>
+            </span>
+          </span> 
+          <span rel="prog:body"> 
+            then
+            <span typeof="prog:Predicate">
+              <a rel="prog:arg" href="#fib-out">the n<sup>th</sup> Fibonacci number</a> 
+              <a rel="rdf:type" href="http://www.example.com/hypercode/core.html#equals">is</a> 
+              <span rel="prog:arg">the 
+                <a rel="rdf:type" href="http://www.example.com/hypercode/core.html#add">sum</a> of 
+                <span rel="prog:arg">the 
+                  <span rel="#fib-n">
+                    <a rel="prog:subtractand" href="#fib-n">n</a> 
+                    <a rel="rdf:type" href="http://www.example.com/hypercode/core.html#subtract">-</a> 
+                    <span property="prog:subtractor">1</span>th 
+                  </span>
+                  <a rel="rdf:type" href="#fib">Fibonacci number</a>
+                </span> and 
+                <span rel="prog:arg">the 
+                  <span rel="#fib-n">
+                    <a rel="prog:subtractand" href="#fib-n">n</a> 
+                    <a rel="rdf:type" href="http://www.example.com/hypercode/core.html#subtract">-</a> 
+                    <span property="prog:subtractor">2</span>th 
+                  </span>
+                  <a rel="rdf:type" href="#fib">Fibonacci number</a>
+                </span>.
+              </span>
+            </span>
+          </span>
+        </div>
+        </li>
+      </ul>
+    </blockquote>
+    <figcaption>The completed specification for Fibonacci numbers.</figcaption>
+  </figure>
+
+  <p>
+  Of course, we are not limited to just HTML. We could annotate equations written in MathML, for
+  example, or a state-machine diagram in SVG. Rather than translating whatever is the best notation
+  for our problem into some programming language in a separate file, we simply add enough information
+  to our specification to make it run. I believe this will eliminate a lot of the disconnect between
+  conception and realisation, and reduce the number of bugs resulting from the mental conversion of
+  concepts.
+  </p>
+</section>
+<section id="sec-tooling">
+  <header>
+    <h2>Tooling</h2>
+  </header>
+  <p>
+  Whilst I feel this way of writing programs as linked data annotations on specifications has a certain
+  elegance, I believe this idea will really shine with good tool support. IDEs have become a common way
+  to navigate code, but with this your browser can be your IDE working on your specification.
+  </p>
+  <p>
+  Imagine taking the above specification, before the annotations were added, and selecting the whole
+  block. With a single command, the block becomes an executable unit, perhaps automatically setting
+  the <code>dc:title</code> property on the heading. Select the text ‘Fibonacci number’ in the third
+  case and another command could search through all linked processes to find those which look similar,
+  in this case the very predicate we're defining. We can use the browser to incrementally mark-up our
+  specification with behaviour.
+  </p>
+  <p>
+  Should we want a different view, say as a <a href="http://www.subtextual.org/">schematic table</a>, then since the behaviour is described in 
+  linked data, this is trivial. In fact, people could write web applications that simply provide a 
+  different visualisation on the executable units in different web pages. Programs become data for
+  mash-ups. An entrepreneurial developer could produce a service that turns a program into an 
+  execution diagram, or a dependency diagram, or anything for which there is a need.
+  </p>
+  <section>
+    <header>
+      <h3>Subsection</h3>
+    </header>
+  <p>
+  Should we want a different view, say as a <a href="http://www.subtextual.org/">schematic table</a>, then since the behaviour is described in 
+  linked data, this is trivial. In fact, people could write web applications that simply provide a 
+  different visualisation on the executable units in different web pages. Programs become data for
+  mash-ups. An entrepreneurial developer could produce a service that turns a program into an 
+  execution diagram, or a dependency diagram, or anything for which there is a need.
+  </p>
+    <section>
+      <header>
+        <h4>Subsubsection</h4>
+      </header>
+  <p>
+  Should we want a different view, say as a <a href="http://www.subtextual.org/">schematic table</a>, then since the behaviour is described in 
+  linked data, this is trivial. In fact, people could write web applications that simply provide a 
+  different visualisation on the executable units in different web pages. Programs become data for
+  mash-ups. An entrepreneurial developer could produce a service that turns a program into an 
+  execution diagram, or a dependency diagram, or anything for which there is a need.
+  </p>
+    </section>
+  </section>
+  <section>
+    <header>
+      <h3>Subsection</h3>
+    </header>
+  <p>
+  Should we want a different view, say as a <a href="http://www.subtextual.org/">schematic table</a>, then since the behaviour is described in 
+  linked data, this is trivial. In fact, people could write web applications that simply provide a 
+  different visualisation on the executable units in different web pages. Programs become data for
+  mash-ups. An entrepreneurial developer could produce a service that turns a program into an 
+  execution diagram, or a dependency diagram, or anything for which there is a need.
+  </p>
+  </section>
+  <p>
+  With the wealth of data that is exposed by providing executable specifications in the form of
+  linked data, search engines can be used to find routines others have written and published. Using
+  them in your code is as simple as using their URI. If the routines are annotated with licencing
+  information, then an IDE would be able to automatically work out whether or not there is a
+  conflict. Search engines could also filter their results by compatible licences.
+  </p>
+  <p>
+  I believe that there are many opportunities afforded by this method, and by having the structure
+  of the code available explicitly rather than serialised into a linear form. Rich comments can
+  be defined, shown, hidden, linked and thrown away without touching the code itself. A web
+  application could host collaborative comments for a team, without needing to touch the code just
+  by using linked data principles. I am sure there are many more ideas that I haven’t thought of 
+  just waiting for someone out there to develop them.
+  </p>
+</section>
+<section id="sec-living-code">
+  <header>
+    <h2>Living Code</h2>
+  </header>
+  <p>
+  By making specifications executable, we can allow for live specifications. By embedding a
+  Javascript interpreter in the page, we could run our implementation, test it and also test the 
+  assumptions in the requirements. This allows for a much tighter feedback cycle than current 
+  tools. By providing a link to the specification to a client, we can push that through to the 
+  full development cycle, allowing our customers to see how the specification works just by
+  playing with it.
+  </p>
+  <p>
+  Test suites can be added to the specification as annotations, and previous executions (remember,
+  they're instances of the specification) can be trivially turned into tests. Through the 
+  same distributed extensibility mechanisms as I have already mentioned, others can easily extend
+  the testing mechanisms. Want to add something like <a href="http://www.cs.chalmers.se/~rjmh/QuickCheck/">QuickCheck</a>? No problem. Just define the 
+  propositions in RDF and write a web application, or a piece of Javascript, to test them. At any 
+  point, one may navigate through an execution trace as if it were a piece of the Web, because it is.
+  </p>
+  <p>
+  We could also use this method to allow for linked process web-services over simple HTTP. A suitable
+  server extension could react to <code>POST</code> requests on the document by running the
+  appropriate code. Clients could find new services simply by using a semantic web search engine.
+  A <code>GET</code> request on the document would yield a precise description of its parameters 
+  and behaviour, which could be used in the matchmaking and orchestration process.
+  </p>
+</section>
+<section id="sec-further-work">
+  <header>
+    <h2>Further Work</h2>
+  </header>
+  <p>
+  At the time of writing, this idea is less than 24 hours old so there is plenty of work to do. I need
+  to define a vocabulary for expressing the executable behaviours. I need to define a formal semantics
+  for the execution model. I need to write a Javascript interpreter and maybe a command-line one too.
+  There needs to be a good IDE.
+  </p>
+  <p>
+  Please bear with me as I explore these thoughts further. I was excited to feel so many pieces of 
+  what I have worked on over the past ten years come together so nicely so I would like to thank 
+  Sean for his provocative essay. If you are interested in the ideas here, please <a href="http://www.joegeldart.com/">contact me</a>.
+  </p>
+</section>

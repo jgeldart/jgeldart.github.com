@@ -1,0 +1,16 @@
+---
+layout: default
+title: Joe Geldart
+subtitle: Web Scientist and Software Engineer
+---
+
+<section id="sec-essays">
+  <header>
+    <h2>Recent Essays</h2>
+  </header>
+  <ul>
+    {{ for post in site.posts limit: 25 }}
+    <li about="http://www.joegeldart.com{{ post.url }}" typeof="bibo:Webpage"><a href="http://www.joegeldart.com{{ post.url }}" property="dcterms:title">{{ post.title }}</a>, <span class="date" property="dcterms:issued" content="{{ post.date}}">{{ post.date | date: "%d %B %Y" }}</span></li>
+    {{ endfor }}
+  </ul>
+</section>

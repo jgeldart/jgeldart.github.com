@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:bibo="http://purl.org/ontology/bibo/"
+  xmlns:cc="http://creativecommons.org/ns#"
+  about="" typeof="bibo:Webpage">
+  <head>
+    <title>{{ page.title }} - Joe Geldart</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <script src="/scripts/jquery-1.4.3.min.js" type="text/javascript"></script>
+    <script src="/scripts/hyphenator/hyphenator.min.js" type="text/javascript"></script>
+    <script src="/scripts/hyphenator/en.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.hyphenator.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $("p").hyphenate();
+    </script>
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/scripts/nwmatcher-1.2.2.js"></script>
+    <!--[if (gte IE 6)&(lte IE 8)]>
+      <script type="text/javascript" src="/scripts/selectivizr/selectivizr.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <h1><a href="http://www.joegeldart.com/">Joe Geldart</a></h1>
+      <nav>
+        <ul>
+          <li><a href="http://about.me/joe.g">About Me</a></li>
+          <li><a href="http://www.joegeldart.com/cv/">Curriculum Vitae</a></li>
+          <li><a href="http://www.github.com/jgeldart/">Github Projects</a></li>
+          <li><a href="http://twitter.com/arnia">Twitter</a></li>
+          <li><a href="http://uk.linkedin.com/in/jgeldart">Linked In</a></li>
+        </ul>
+      </nav>
+    </header>
+    <article class="essay">
+      <header>
+        <hgroup>
+          <h1 property="dcterms:title" content="{{ page.title }}: {{ page.subtitle }}">{{ page.title }}</h1>
+          <h2>{{ page.subtitle }}</h2>
+          <div class="author"><a href="http://www.joegeldart.com">Joe Geldart</a></div>
+          <div class="published" property="dcterms:issued" content="{{ post.date }}" datatype="xsd:dateTime">{{ post.date | date: "%d %B %Y"}}</div>
+        </hgroup>
+      </header>
+      {{ content }}
+      <footer>
+        <p class="copyright" about="">
+        Copyright &copy; <span rel="dcterms:creator"><a typeof="foaf:Person" rel="foaf:homepage" property="foaf:name" href="http://www.joegeldart.com/">Joe Geldart</a></span>, 2010. 
+        Licenced under a <a rel="cc:license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons License</a>.
+        </p>
+      </footer>
+    </article>
+  </body>
+</html>

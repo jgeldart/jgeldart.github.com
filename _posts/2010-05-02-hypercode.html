@@ -159,7 +159,7 @@ layout: post
   </p>
   <figure class="code">
     <blockquote>
-      <code>  &lt;figure class="specification" typeof="prog:PurePredicate" id="fib" about="#fib" prefix="prog: http://www.example.com/hypercode/core.html#"&gt;
+      <pre><code>  &lt;figure class="specification" typeof="prog:PurePredicate" id="fib" about="#fib" prefix="prog: http://www.example.com/hypercode/core.html#"&gt;
 &lt;blockquote&gt;
 &lt;h3 property="dc:title"&gt;Fibonacci Numbers&lt;/h3&gt;
 &lt;p&gt;
@@ -169,7 +169,7 @@ layout: post
 is defined as follows:
 &lt;/p&gt;
 ...
-      </code>
+      </code></pre>
     </blockquote>
     <figcaption>Basic metadata for an executable unit.</figcaption>
   </figure>
@@ -194,7 +194,7 @@ is defined as follows:
   </p>
   <figure class="code">
     <blockquote>
-      <code>  &lt;ul&gt;
+      <pre><code>  &lt;ul&gt;
 &lt;li rel="prog:case"&gt;
 &lt;div typeof="prog:Case"&gt;
 The &lt;span rel="prog:condition"&gt;
@@ -230,7 +230,7 @@ The &lt;span rel="prog:condition"&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 ...
-      </code>
+      </code></pre>
     </blockquote>
     <figcaption>The first two cases in the Fibonacci specification.</figcaption>
   </figure>
@@ -269,7 +269,7 @@ The &lt;span rel="prog:condition"&gt;
   </p>
   <figure class="code">
     <blockquote>
-      <code>  &lt;li rel="prog:case"&gt;
+      <pre><code>  &lt;li rel="prog:case"&gt;
 &lt;div typeof="prog:Case"&gt; 
 &lt;span rel="prog:condition"&gt;
 If
@@ -308,7 +308,7 @@ then
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-      </code>
+      </code></pre>
     </blockquote>
     <figcaption>The third case in the Fibonacci specification.</figcaption>
   </figure>
@@ -460,13 +460,19 @@ then
       <header>
         <h4>Subsubsection</h4>
       </header>
-  <p>
-  Should we want a different view, say as a <a href="http://www.subtextual.org/">schematic table</a>, then since the behaviour is described in 
-  linked data, this is trivial. In fact, people could write web applications that simply provide a 
-  different visualisation on the executable units in different web pages. Programs become data for
-  mash-ups. An entrepreneurial developer could produce a service that turns a program into an 
-  execution diagram, or a dependency diagram, or anything for which there is a need.
-  </p>
+      <p>
+      Should we want a different view, say as a <a href="http://www.subtextual.org/">schematic table</a>, then since the behaviour is described in 
+      linked data, this is trivial. In fact, people could write web applications that simply provide a 
+      different visualisation on the executable units in different web pages. Programs become data for
+      mash-ups. An entrepreneurial developer could produce a service that turns a program into an 
+      execution diagram, or a dependency diagram, or anything for which there is a need.
+      </p>
+      <aside>
+        <blockquote class="quote">
+          ... since the behaviour is described using linked data, this is trivial.
+        </blockquote>
+        <cite class="quote_cite">Joe Geldart</cite>
+      </aside>
     </section>
   </section>
   <section>

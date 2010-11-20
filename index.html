@@ -10,7 +10,7 @@ subtitle: Web Scientist and Software Engineer
   </header>
   <ul>
     {% for post in site.posts %}
-    <li about="http://www.joegeldart.com{{ post.url }}" typeof="bibo:Webpage"><a href="http://www.joegeldart.com{{ post.url }}" property="dcterms:title">{{ post.title }}</a>, <span class="date" property="dcterms:issued" content="{{ post.date }}">{{ post.date | date: "%d %B %Y" }}</span></li>
+    <li about="http://www.joegeldart.com{{ post.url }}" typeof="bibo:Webpage"><a href="http://www.joegeldart.com{{ post.url }}" property="dcterms:title">{{ post.title }}</a>, <span class="date" property="dcterms:issued" content="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%d %B %Y" }}</span></li>
     {% endfor %}
   </ul>
 </section>

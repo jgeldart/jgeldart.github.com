@@ -632,6 +632,11 @@ figure > figcaption::before {
 }
 
 /* line 183, ../src/screen.scss */
+.abstract + section {
+  margin-top: 1.5em;
+}
+
+/* line 187, ../src/screen.scss */
 p {
   font-size: 1em;
   line-height: 1.5em;
@@ -639,13 +644,13 @@ p {
   margin-bottom: 0em;
 }
 
-/* line 188, ../src/screen.scss */
+/* line 192, ../src/screen.scss */
 p + p, aside + p {
   text-indent: 1.5em;
 }
 
 /* Styles -------------------------------------------------------------- */
-/* line 194, ../src/screen.scss */
+/* line 198, ../src/screen.scss */
 body > header > h1 a {
   text-indent: -119988px;
   overflow: hidden;
@@ -658,38 +663,38 @@ body > header > h1 a {
   height: 96px;
 }
 
-/* line 201, ../src/screen.scss */
+/* line 205, ../src/screen.scss */
 body > header > nav ul {
   list-style: none;
   margin-left: 0;
 }
-/* line 204, ../src/screen.scss */
+/* line 208, ../src/screen.scss */
 body > header > nav ul li {
   border-bottom: 1px solid #cccccc;
   line-height: 1.45em;
 }
-/* line 205, ../src/screen.scss */
+/* line 209, ../src/screen.scss */
 body > header > nav ul li a {
   text-decoration: none;
 }
-/* line 211, ../src/screen.scss */
+/* line 215, ../src/screen.scss */
 body > header > nav ul li:last-child {
   border-bottom: none;
 }
 
-/* line 219, ../src/screen.scss */
+/* line 223, ../src/screen.scss */
 article > header h2 {
   font-weight: normal;
   color: #7f7f7f;
 }
 
-/* line 225, ../src/screen.scss */
+/* line 229, ../src/screen.scss */
 em {
   font-weight: bold;
   font-style: normal;
 }
 
-/* line 230, ../src/screen.scss */
+/* line 234, ../src/screen.scss */
 aside {
   position: absolute;
   left: 16px;
@@ -706,7 +711,7 @@ aside {
   border-color: #cccccc;
 }
 
-/* line 237, ../src/screen.scss */
+/* line 241, ../src/screen.scss */
 aside > blockquote {
   font-size: 1.125em;
   line-height: 1.333em;
@@ -714,7 +719,7 @@ aside > blockquote {
   margin-bottom: 0em;
 }
 
-/* line 243, ../src/screen.scss */
+/* line 247, ../src/screen.scss */
 aside > cite.quote_cite {
   font-size: 0.875em;
   line-height: 1.714em;
@@ -724,24 +729,24 @@ aside > cite.quote_cite {
   display: block;
   text-align: right;
 }
-/* line 250, ../src/screen.scss */
+/* line 254, ../src/screen.scss */
 aside > cite.quote_cite::before {
   content: "— ";
 }
 
-/* line 255, ../src/screen.scss */
+/* line 259, ../src/screen.scss */
 blockquote.quote::before {
   content: "“";
   color: #4983f8;
 }
 
-/* line 259, ../src/screen.scss */
+/* line 263, ../src/screen.scss */
 blockquote.quote::after {
   content: "”";
   color: #4983f8;
 }
 
-/* line 272, ../src/screen.scss */
+/* line 276, ../src/screen.scss */
 pre .comment,
 pre .annotation,
 pre .template_comment,
@@ -751,7 +756,7 @@ pre .apache .cbracket {
   color: #7f7f7f;
 }
 
-/* line 284, ../src/screen.scss */
+/* line 288, ../src/screen.scss */
 pre .keyword,
 pre .id,
 pre .title,
@@ -764,7 +769,7 @@ pre .tex .command {
   color: #084bd3;
 }
 
-/* line 307, ../src/screen.scss */
+/* line 311, ../src/screen.scss */
 pre .string,
 pre .title,
 pre .parent,
@@ -788,7 +793,7 @@ pre .tex .formula {
   color: #4983f8;
 }
 
-/* line 327, ../src/screen.scss */
+/* line 331, ../src/screen.scss */
 pre .ruby .string,
 pre .decorator,
 pre .filter .argument,
@@ -809,7 +814,7 @@ pre .tex .special {
   color: #d39008;
 }
 
-/* line 333, ../src/screen.scss */
+/* line 337, ../src/screen.scss */
 pre .phpdoc,
 pre .javadoc,
 pre .xmlDocTag {

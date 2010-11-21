@@ -82,8 +82,8 @@ syntax_highlight: true
     class method <code>verifiable</code> in the class definition. This is an extension added
     to <code>Object</code> when the gem is loaded:
   </p>
-  <blockquote>
-<pre><code>class User
+  <blockquote class="code">
+<pre><code class="language-ruby">class User
   verifiable
 end
 </code></pre>
@@ -109,8 +109,8 @@ end
     values that are <code>nil</code>:
   </p>
 
-  <blockquote>
-<pre><code>class User
+  <blockquote class="code">
+<pre><code class="language-ruby">class User
   verifiable
 
   attr_accessor :login
@@ -123,8 +123,8 @@ end
     Multiple validations may be defined against an attribute and all will be tested:
   </p>
 
-  <blockquote>
-<pre><code>class User
+  <blockquote class="code">
+<pre><code class="language-ruby">class User
   verifiable
 
   attr_accessor :login
@@ -138,8 +138,8 @@ end
     Predicates can take late-bound parameters, either positional or named:
   </p>
 
-  <blockquote>
-<pre><code>class User
+  <blockquote class="code">
+<pre><code class="language-ruby">class User
   verifiable
 
   attr_accessor :login, :star_count

@@ -76,9 +76,28 @@
       </header>
       {{ content }}
       <footer>
+        {% if page.comments %}
+        <div class="comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              // The following are highly recommended additional parameters. Remove the slashes in front to use.
+              // var disqus_identifier = '{{ page.id }}';
+              // var disqus_url = 'http://example.com/permalink-to-page.html';
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://joegeldart.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">Blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+        {% endif %}
         <p class="copyright" about="">
-        Copyright &copy; <span rel="dcterms:creator"><a typeof="foaf:Person" rel="foaf:homepage" property="foaf:name" href="http://www.joegeldart.com/">Joe Geldart</a></span>, 2010. 
-        Licenced under a <a rel="cc:license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons License</a>.
+          Copyright &copy; <span rel="dcterms:creator"><a typeof="foaf:Person" rel="foaf:homepage" property="foaf:name" href="http://www.joegeldart.com/">Joe Geldart</a></span>, 2010. 
+          Licenced under a <a rel="cc:license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons License</a>.
         </p>
       </footer>
     </article>

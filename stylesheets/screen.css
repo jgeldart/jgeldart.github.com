@@ -601,15 +601,23 @@ article > footer {
   width: 100%;
   margin-right: 2.041%;
 }
+/* line 158, ../src/screen.scss */
+article > footer .comments {
+  margin-top: 1.5em;
+}
+/* line 161, ../src/screen.scss */
+article > footer .copyright {
+  margin-top: 1.5em;
+}
 
-/* line 160, ../src/screen.scss */
+/* line 166, ../src/screen.scss */
 figure {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   counter-increment: figure;
 }
 
-/* line 166, ../src/screen.scss */
+/* line 172, ../src/screen.scss */
 figure > figcaption {
   font-size: 0.875em;
   line-height: 1.714em;
@@ -617,13 +625,13 @@ figure > figcaption {
   margin-bottom: 0em;
   text-align: center;
 }
-/* line 171, ../src/screen.scss */
+/* line 177, ../src/screen.scss */
 figure > figcaption::before {
   content: "Figure " counter(figure) ". ";
   font-weight: bold;
 }
 
-/* line 177, ../src/screen.scss */
+/* line 183, ../src/screen.scss */
 p {
   font-size: 1em;
   line-height: 1.5em;
@@ -631,13 +639,13 @@ p {
   margin-bottom: 0em;
 }
 
-/* line 182, ../src/screen.scss */
+/* line 188, ../src/screen.scss */
 p + p, aside + p {
   text-indent: 1.5em;
 }
 
 /* Styles -------------------------------------------------------------- */
-/* line 188, ../src/screen.scss */
+/* line 194, ../src/screen.scss */
 body > header > h1 a {
   text-indent: -119988px;
   overflow: hidden;
@@ -650,48 +658,43 @@ body > header > h1 a {
   height: 96px;
 }
 
-/* line 195, ../src/screen.scss */
+/* line 201, ../src/screen.scss */
 body > header > nav ul {
   list-style: none;
   margin-left: 0;
 }
-/* line 198, ../src/screen.scss */
+/* line 204, ../src/screen.scss */
 body > header > nav ul li {
   border-bottom: 1px solid #cccccc;
   line-height: 1.45em;
 }
-/* line 199, ../src/screen.scss */
+/* line 205, ../src/screen.scss */
 body > header > nav ul li a {
   text-decoration: none;
 }
-/* line 205, ../src/screen.scss */
+/* line 211, ../src/screen.scss */
 body > header > nav ul li:last-child {
   border-bottom: none;
 }
 
-/* line 213, ../src/screen.scss */
+/* line 219, ../src/screen.scss */
 article > header h2 {
   font-weight: normal;
   color: #7f7f7f;
 }
 
-/* line 219, ../src/screen.scss */
-article > footer {
-  border-top: 1px solid #cccccc;
-}
-
-/* line 223, ../src/screen.scss */
+/* line 225, ../src/screen.scss */
 em {
   font-weight: bold;
   font-style: normal;
 }
 
-/* line 228, ../src/screen.scss */
+/* line 230, ../src/screen.scss */
 p {
   text-align: justify;
 }
 
-/* line 232, ../src/screen.scss */
+/* line 234, ../src/screen.scss */
 aside {
   position: absolute;
   left: 16px;
@@ -708,7 +711,7 @@ aside {
   border-color: #cccccc;
 }
 
-/* line 239, ../src/screen.scss */
+/* line 241, ../src/screen.scss */
 aside > blockquote {
   font-size: 1.125em;
   line-height: 1.333em;
@@ -716,7 +719,7 @@ aside > blockquote {
   margin-bottom: 0em;
 }
 
-/* line 245, ../src/screen.scss */
+/* line 247, ../src/screen.scss */
 aside > cite.quote_cite {
   font-size: 0.875em;
   line-height: 1.714em;
@@ -726,24 +729,24 @@ aside > cite.quote_cite {
   display: block;
   text-align: right;
 }
-/* line 252, ../src/screen.scss */
+/* line 254, ../src/screen.scss */
 aside > cite.quote_cite::before {
   content: "— ";
 }
 
-/* line 257, ../src/screen.scss */
+/* line 259, ../src/screen.scss */
 blockquote.quote::before {
   content: "“";
   color: #4983f8;
 }
 
-/* line 261, ../src/screen.scss */
+/* line 263, ../src/screen.scss */
 blockquote.quote::after {
   content: "”";
   color: #4983f8;
 }
 
-/* line 274, ../src/screen.scss */
+/* line 276, ../src/screen.scss */
 pre .comment,
 pre .annotation,
 pre .template_comment,
@@ -753,7 +756,7 @@ pre .apache .cbracket {
   color: #7f7f7f;
 }
 
-/* line 286, ../src/screen.scss */
+/* line 288, ../src/screen.scss */
 pre .keyword,
 pre .id,
 pre .title,
@@ -766,7 +769,7 @@ pre .tex .command {
   color: #084bd3;
 }
 
-/* line 309, ../src/screen.scss */
+/* line 311, ../src/screen.scss */
 pre .string,
 pre .title,
 pre .parent,
@@ -790,7 +793,7 @@ pre .tex .formula {
   color: #4983f8;
 }
 
-/* line 329, ../src/screen.scss */
+/* line 331, ../src/screen.scss */
 pre .ruby .string,
 pre .decorator,
 pre .filter .argument,
@@ -811,7 +814,7 @@ pre .tex .special {
   color: #d39008;
 }
 
-/* line 335, ../src/screen.scss */
+/* line 337, ../src/screen.scss */
 pre .phpdoc,
 pre .javadoc,
 pre .xmlDocTag {

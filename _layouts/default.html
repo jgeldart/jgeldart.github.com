@@ -24,7 +24,7 @@
         });
     </script>
     {% endif %}
-    {% if page.syntaxhighlight %}
+    {% if page.syntax_highlight %}
     <script src="http://yandex.st/highlightjs/5.14/highlight.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       hljs.initHighlightingOnLoad();
@@ -70,7 +70,7 @@
         <hgroup>
           <h1 property="dcterms:title" content="{{ page.title }}{% if page.subtitle %}: {{ page.subtitle }}{% endif %}">{{ page.title }}</h1>
           {% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
-          {% if !page.hide_author %}<div class="author"><a href="http://www.joegeldart.com">Joe Geldart</a></div>{% endif %}
+          {% if page.byline %}<div class="author"><a href="http://www.joegeldart.com">Joe Geldart</a></div>{% endif %}
           {% if page.date %}<div class="published" property="dcterms:issued" content="{{ page.date | date: "%Y-%m-%d" }}" datatype="xsd:dateTime">{{ page.date | date: "%d %B %Y" }}</div>{% endif %}
         </hgroup>
       </header>

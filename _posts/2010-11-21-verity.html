@@ -39,3 +39,126 @@ syntax_highlight: true
     the validations are expressed as a readable DSL. Unlike <a href="https://github.com/cainlevy/semantic-attributes">Semantic Attributes</a>, there is no tie to ActiveRecord.
   </p>
 </section>
+<section id="sec-humane">
+  <header>
+    <h2>A humane validation library</h2>
+  </header>
+  <p>
+    Verity’s aim is to make validations readable and composable and, therefore, more maintainable. After spending too 
+    long writing complex, interdependent validations for a project with an (admittedly) tricky data model, I decided 
+    that enough was enough. Validations are a vital part of the definition of a data model in any real-world 
+    application, where data noise can be introduced by its users and code and must be prevented. As such, they should 
+    be as nice to define as possible.
+  </p>
+  <p>
+    Verity accomplishes this in two main ways:
+  </p>
+  <ul>
+    <li>It provides a DSL for defining the validations in a readable syntax similar to RSpec; and</li>
+    <li>It treats validations lazily, so that they can be composed to construct more complex validations out of simpler ones.</li>
+  </ul>
+  <p>
+    The main inspirations for the project are <a href="http://rspec.info/">RSpec</a> and <a href="http://github.com/cainlevy/semantic-attributes/">Semantic Attributes</a>, 
+    a similar attempt to define a DSL for validations (although without the composability).
+  </p>
+  <p>
+    As additional goals, Verity aims to:
+  </p>
+  <ul>
+    <li>Be agnostic as to what persistence framework, if any, is being used; it is as useful on plain Ruby objects as it is on ActiveRecord records;</li>
+    <li>Be easy to extend, with new predicates that can be shared with other developers and projects; and</li>
+    <li>Integrate well with whatever internationalisation framework is being used to support multi-lingual and multi-region applications.</li>
+  </ul>
+  <p>
+    Possible future goals include integration with YARD, for easy documentation of model constraints, and RSpec and Cucumber, for testing these constraints.
+  </p>
+</section>
+<section id="sec-using">
+  <header>
+    <h2>Using Verity</h2>
+  </header>
+  <p>
+    Enabling Verity's DSL and core API on an object is simply a matter of using the
+    class method <code>verifiable</code> in the class definition. This is an extension added
+    to <code>Object</code> when the gem is loaded:
+  </p>
+  <blockquote>
+<pre><code>class User
+  verifiable
+end
+</code></pre>
+  </blockquote>
+  <p>
+    Instances of this class now have a number of methods defined upon them for
+    performing validations. <code>#valid?</code> returns <code>false</code> if and only if the
+    instance fails to satisfy the defined conditions and <code>true</code> otherwise (note
+    that it will return <code>true</code> if no validations are defined at all).
+    <code>#validation_errors</code> returns a <code>Hash</code>, keyed by attribute name, of any errors
+    found on the instance. This allows you to report failures back to your users
+    in a natural fashion.
+  </p>
+
+  <p>
+    Validations are defined using the syntax <code>attribute_name_must</code> (for
+    positive validations) or <code>attribute_name_must_not</code> (for negative ones).
+  </p>
+
+  <p>
+    These validations are built using <em>predicates</em>, objects that represent abstract
+    tests against values. The simplest predicate is a nil check, which matches
+    values that are <code>nil</code>:
+  </p>
+
+  <blockquote>
+<pre><code>class User
+  verifiable
+
+  attr_accessor :login
+  login_must_not be_nil
+end
+</code></pre>
+  </blockquote>
+
+  <p>
+    Multiple validations may be defined against an attribute and all will be tested:
+  </p>
+
+  <blockquote>
+<pre><code>class User
+  verifiable
+
+  attr_accessor :login
+  login_must_not be_nil
+  login_must have_length(:at_least =&gt; 4)
+end
+</code></pre>
+  </blockquote>
+
+  <p>
+    Predicates can take late-bound parameters, either positional or named:
+  </p>
+
+  <blockquote>
+<pre><code>class User
+  verifiable
+
+  attr_accessor :login, :star_count
+  login_must have_length, :at_least =&gt; 4
+  star_count_must be_greater_than, 5
+end
+</code></pre>
+  </blockquote>
+
+  <p>
+    Defining new predicates is as simple as defining a new class that inherits from
+    <code>Verity::Predicates::Base</code> and a class method (available to your class) that
+    constructs an appropriate instance of your class. Methods defined within
+    <code>Verity::Predicates</code> are automatically available to all classes which define
+    <code>verifiable</code>. As with RSpec, it is through judicious use of these methods that
+    we gain our readability, so think carefully about how your definitions 'read'.
+    In particular, be sparing with positional parameters (and treat them like
+    direct and indirect objects in English) and use named parameters with keys that
+    read like prepositional phrases (such as <code>with_domain</code> or <code>at_least</code>).
+  </p>
+</section>
+  

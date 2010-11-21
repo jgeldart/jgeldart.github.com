@@ -2,6 +2,7 @@
 <html lang="en"
   xmlns:foaf="http://xmlns.com/foaf/0.1/"
   xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/terms/"
   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
   xmlns:bibo="http://purl.org/ontology/bibo/"
   xmlns:cc="http://creativecommons.org/ns#"
@@ -10,16 +11,25 @@
     <title>{{ page.title }}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <link href="http://feeds.feedburner.com/joegeldart/essays" rel="alternate" title="Joe Geldart" type="application/atom+xml" />
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
-    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <script src="/scripts/jquery-1.4.3.min.js" type="text/javascript"></script>
-    <script src="/scripts/hyphenator/hyphenator.min.js" type="text/javascript"></script>
-    <script src="/scripts/hyphenator/en.js" type="text/javascript"></script>
-    <script src="/scripts/jquery.hyphenator.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      $("p").hyphenate();
+    <link href="http://joegeldart.com/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="http://joegeldart.com/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+    <link href="http://joegeldart.com/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <script src="http://joegeldart.com/scripts/jquery-1.4.3.min.js" type="text/javascript"></script>
+    {% if page.math %}
+    <script src="/scripts/MathJax/MathJax.js" type="text/javascript">
+      MathJax.Hub.Config({
+          extensions: ["tex2jax.js"],
+          jax: ["input/TeX","output/HTML-CSS"],
+          tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+        });
     </script>
+    {% endif %}
+    {% if page.syntaxhighlight %}
+    <script src="http://yandex.st/highlightjs/5.14/highlight.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+    {% endif %}
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -55,15 +65,36 @@
         </ul>
       </nav>
     </header>
-    <article>
+    <article{% if page.kind %}class="{{ page.kind }}"{% endif %}>
       <header>
         <hgroup>
-          <h1 property="dcterms:title">{{ page.title }}</h1>
-          <h2>{{ page.subtitle }}</h2>
+          <h1 property="dcterms:title" content="{{ page.title }}{% if page.subtitle %}: {{ page.subtitle }}{% endif %}">{{ page.title }}</h1>
+          {% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
+          {% if !page.hide_author %}<div class="author"><a href="http://www.joegeldart.com">Joe Geldart</a></div>{% endif %}
+          {% if page.date %}<div class="published" property="dcterms:issued" content="{{ page.date | date: "%Y-%m-%d" }}" datatype="xsd:dateTime">{{ page.date | date: "%d %B %Y" }}</div>{% endif %}
         </hgroup>
       </header>
       {{ content }}
       <footer>
+        {% if page.comments %}
+        <div class="comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              // The following are highly recommended additional parameters. Remove the slashes in front to use.
+              // var disqus_identifier = '{{ page.id }}';
+              // var disqus_url = 'http://example.com/permalink-to-page.html';
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://joegeldart.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">Blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+        {% endif %}
         <p class="copyright" about="">
         Copyright &copy; <span rel="foaf:maker dcterms:creator"><a typeof="foaf:Person" rel="foaf:homepage" property="foaf:name" href="http://www.joegeldart.com/">Joe Geldart</a></span>, 2010. 
         Licenced under a <a rel="cc:license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons License</a>.

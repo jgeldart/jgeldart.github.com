@@ -1,0 +1,41 @@
+---
+title: Validating with Verity
+subtitle: Expressive validations for Ruby
+layout: default
+byline: true
+comments: true
+syntax_highlight: true
+---
+<p property="dcterms:description">
+  Validations are important in many systems for maintaining data integrity with respect to some domain model.
+  ActiveModel includes a set of validations which can be used in Rails for describing conditions on 
+  model objects, but these are limited to persisted objects and lack expressiveness and reusability; slightly
+  altering the nature of a validation often requires a new custom validation to be written. Verity provides
+  a generic framework for validating any Ruby object, whether persisted or not, and composing validations
+  with an expressive, readable DSL.
+</p>
+
+<section id="sec-why">
+  <header>
+    <h2>Why do we validate?</h2>
+  </header>
+  <p>
+    Validation is important for expressing domain constraints, ensuring that the data which is stored in an 
+    information system makes sense. In a stock control system (for example) it would be nonsense for the 
+    weight (or quantity) of a stock item to be negative. Validations allow us to prevent such data from being 
+    persisted. Validations also allow us to check the sanity of the results of operations as a form of in 
+    process error check. Any errors from these validations can be presented to the users, or put into a log, 
+    in a readable form that explains exactly what went wrong and how to fix it. These improves the usability
+    of the system.
+  </p>
+  <p>
+    A good validation library makes it easy to express arbitrary aspects of the domain model. The complexity 
+    of the code should be proportional to the complexity of the condition. A vital part of this is allowing 
+    us to decompose complex conditions into small, reusable parts that may be glued back together in many 
+    different ways.
+  </p>
+  <p>
+    <a href="https://github.com/jgeldart/verity">Verity</a> is my attempt to provide an expressive validation system. Unlike <a href="http://yehudakatz.com/2010/01/10/activemodel-make-any-ruby-object-feel-like-activerecord/">ActiveModel</a>, 
+    the validations are expressed as a readable DSL. Unlike <a href="https://github.com/cainlevy/semantic-attributes">Semantic Attributes</a>, there is no tie to ActiveRecord.
+  </p>
+</section>

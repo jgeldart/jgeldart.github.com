@@ -10,7 +10,9 @@ subtitle: Web Scientist and Software Engineer
   </header>
   <ul>
     {% for post in site.posts %}
+    {% if post.published %}
     <li about="http://www.joegeldart.com{{ post.url }}" typeof="bibo:Webpage"><a href="http://www.joegeldart.com{{ post.url }}" property="dcterms:title">{{ post.title }}</a>, <span class="date" property="dcterms:issued" content="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%d %B %Y" }}</span></li>
+    {% endif %}
     {% endfor %}
   </ul>
 </section>

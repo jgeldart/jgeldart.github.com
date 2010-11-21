@@ -205,3 +205,135 @@ end
     but this hasn't been implemented yet.
   </p>
 </section> 
+<section id="sec-future-work">
+  <header>
+    <h2>Future work</h2>
+  </header>
+  <p>
+    This library is in a very early stage right now. There are lots of places it could go 
+    depending on how I, and others, find use for it and the API is not settled yet. I have 
+    considered a few of the possibilities, and have concrete plans for some.
+  </p>
+  <section id="subsec-activerecord">
+    <header>
+      <h3>ActiveRecord integration</h3>
+    </header>
+    <p>
+      Like it or not, ActiveRecord is a very important library that is used in many projects.
+      Unfortunately, ActiveRecord’s validations (now provided through ActiveModel) are cumbersome
+      and this was one of the main motivations for Verity. I plan to allow Verity to be used as 
+      a drop-in replacement for ActiveModel’s validations. This will probably require some changes
+      to the API to align the two. Ideally, I’d avoid an adapter library (such as many systems use)
+      and a core dependency is out of the question; as mentioned previously, an aim of Verity is to 
+      be usable with any Ruby object and definitely outside of Rails.
+    </p>
+  </section>
+  <section id="subsec-internationalisation">
+    <header>
+      <h3>Internationalisation</h3>
+    </header>
+    <p>
+      The world is full of variety, and especially linguistic variety. Verity’s message system is
+      very crude at the moment, and it is a priority that it supports multiple locales. This does not
+      only include translation of messages, but also localised validations for things such as dates, 
+      currencies, addresses and telephone numbers. Localisation and internationalisation should be 
+      supported in some form no matter what system Verity is used in, although we could still leave
+      the translations to the outer system.
+    </p>
+  </section>
+  <section id="subsec-conditionals">
+    <header>
+      <h3>Conditional validation</h3>
+    </header>
+    <p>
+      Composability brings some exciting possibilities. One of these is allowing a boolean logic of 
+      validations. A given validation can be said to apply (or not apply) only when another validation 
+      passes. This could be used to avoid inundating the user with irrelevant messages or to define 
+      complex domain constraints within a single model. As an example, imagine a validation on a
+      message body that checks it doesn’t contain any links, but only if it is HTML:
+    </p>
+    <blockquote class="code">
+<pre><code class="language-ruby">class Message
+  verifiable
+  body_must_not contain_selector("a"), :if =&gt; is_valid_html
+end</code></pre>
+    </blockquote>
+    <p>
+      Implementing these conditionals may require some changes to the core DSL to make them expressive 
+      yet humane.
+    </p>
+  </section>
+  <section id="subsec-soft-validations">
+    <header>
+      <h3>Soft validations</h3>
+    </header>
+    <p>
+      We often deal with hard constraints, requiring that the user enter only perfect data. Sometimes,
+      however, it can be useful to be more forgiving. I want to support soft validations that can be used 
+      to present a warning to the user without blocking saving of the object. As an example, an email 
+      should normally have a subject, but this is not required. Many email clients present a warning if you
+      try to send an email without a subject. It would be useful to be able to express this warning in the 
+      domain model:
+    </p>
+    <blockquote class="code">
+<pre><code class="language-ruby">class Email
+  verifiable
+  subject_should_not be_nil
+end</code></pre>
+    </blockquote>
+    <p>
+      The violation of a soft constraint could trigger a confirmation message, or simply display a note 
+      remarking that a non-critical validation failed.
+    </p>
+  </section>
+  <section id="subsec-quantifications">
+    <header>
+      <h3>Quantifications</h3>
+    </header>
+    <p>
+      Expressing constraints across collections can be difficult in non-composable systems. We often want
+      to define the validity of some object in terms of the validity of some, or all, of the members of 
+      a collection of associated objects. With a composable system, this becomes much easier:
+    </p>
+    <blockquote class="code">
+<pre><code class="language-ruby">class Book
+  verifiable
+  chapters_must all, be_valid
+  contact_emails_must some, be_verified
+  reviewers_must none, be_banned
+end</code></pre>
+    </blockquote>
+    <p>
+      The use of quantificational modifiers like <code>all</code>, <code>some</code> or <code>none</code> 
+      allows us to apply validations to one-to-many associations without adding irrelevant validations to
+      those model classes. In the above example, a user isn’t invalid if they are banned but they <em>are</em>
+      an invalid member of the reviewers association for a book.
+    </p>
+  </section>
+</section>
+<section id="sec-conclusion">
+  <header>
+    <h2>Conclusions</h2>
+  </header>
+  <p>
+    Verity provides an expressive, readable DSL for defining domain constraints on arbitrary Ruby objects. It
+    does this by defining a composable framework of predicates, similar to RSpec, and combinators. A certain 
+    amount of syntactic sugar is given to make it easy to not only use Verity to define validations, but also 
+    to make writing new predicates as simple as possible.
+  </p>
+  <p>
+    There are many exciting directions that this library could go in, and I look forward to getting feedback 
+    from others. I have outlined some of my ideas above. Composability gives some great opportunities for 
+    defining new syntax.
+  </p>
+  <p>
+    This library is intended, above all else, to be useful. Currently its utility is limited by the paltry 
+    number of predicates available. I hope to define, over time, a large library of predicates that will come
+    out of the box. I also hope that others will build predicate libraries, and provide them to the community.
+  </p>
+  <p>
+    If you have any questions, remarks or constructive criticism please leave a comment on this essay. Even if
+    you don’t plan on using the library yourself, or contributing any code, any help with firming up the DSL and
+    API would be appreciated.
+  </p>
+</section>

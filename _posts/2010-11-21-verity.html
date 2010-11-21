@@ -161,4 +161,47 @@ end
     read like prepositional phrases (such as <code>with_domain</code> or <code>at_least</code>).
   </p>
 </section>
-  
+<section id="sec-lazy-params">
+  <header>
+    <h2>Lazy parameters</h2>
+  </header>
+
+  <p>
+    Often we want to validate based on data only available at run-time, and often
+    specific to the record being validated. Named predicate parameters in Verity
+    support lazy evaluation using blocks. A block-valued parameter is evaluated at
+    validation time to produce a value, which is then set on that predicate. The
+    blocks may, optionally, take a parameter which is set to the record instance
+    being validated. This may be used to retrieve attribute values at run-time.
+  </p>
+
+  <blockquote class="code">
+<pre><code class="language-ruby">class Message
+  verifiable
+
+  attr_accessor :length, :message
+  message_must have_length, :exactly =&gt; lambda{|r| r.length}
+end
+</code></pre>
+  </blockquote>
+
+  <p>
+    In fact, this usage is so important that we have a sugar defined for it using
+    a method <code>the</code>:
+  </p>
+
+  <blockquote class="code">
+<pre><code class="language-ruby">class Message
+  verifiable
+
+  attr_accessor :length, :message
+  message_must have_length, :exactly =&gt; the(:length)
+end
+</code></pre>
+  </blockquote>
+
+  <p>
+    It is planned to support this for positional parameters as well very shortly
+    but this hasn't been implemented yet.
+  </p>
+</section> 

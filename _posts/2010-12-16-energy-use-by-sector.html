@@ -1,0 +1,73 @@
+---
+title: Energy Use per Year By Sector
+subtitle: How energy usage has changed over time
+published: false
+layout: default
+byline: false
+comments: true
+syntax_highlight: false
+protovis:
+- /data/eu-energy.js
+---
+<script type="text/javascript">
+var w = 600
+h = 0.5 * w;
+
+var vis = new pv.Panel()
+    .width(w)
+    .height(h)
+    .bottom(25)
+    .left(20)
+    .right(20)
+    .top(0);
+
+  var min_year = pv.min(eu_energy, function(d){ return d.year; });
+  var max_year = pv.max(eu_energy, function(d){ return d.year; });
+  var min_energy = 15000;
+  var max_energy = 1500000;
+
+  var nested_data = pv.nest(eu_energy)
+    .key(function(d){ return d.sector; })
+    .key(function(d){ return d.year; })
+    .rollup(function(v){ return pv.sum(v, function(d) { return d.consumption; })});
+  var flat_data = pv.flatten(nested_data)
+    .key("sector")
+    .key("year")
+    .key("consumption")
+    .array();
+  var data = pv.nest(flat_data).key(function(d) { return d.year }).entries().map(function(d) {
+    var result = {};
+    result.year = parseFloat(d.key);
+    d.values.forEach(function(r) { result[r.sector] = parseFloat(r.consumption); });
+    return result;
+  });
+
+  var x = pv.Scale.linear(min_year, max_year).range(0, w),
+      y = pv.Scale.linear(min_energy, max_energy).range(0, h);
+      fill = pv.Scale.ordinal("Households", "Industry", "Transport", "Services", "Other Sectors")
+          .range("#336699", "#003366", "#99aaff", "blue", "#0033aa");
+
+
+  var stack = vis.add(pv.Layout.Stack)
+      .layers(["Households", "Industry", "Transport", "Services", "Other Sectors"])
+      .values(data)
+      .offset("silohouette")
+      .x(function(d) { return x(d.year) })
+      .y(function(d, p) { return isNaN(y(d[p])) ? 0 : y(d[p]); });
+
+  stack.layer.add(pv.Area)
+      .title(function(d,p) { return p })
+      .fillStyle(function(d,p){return fill(p)})
+      .strokeStyle(function(){ return this.fillStyle().alpha(.5)});
+
+  vis.add(pv.Rule)
+    .data(data)
+    .left(function(d) { return x(d.year); })
+    .strokeStyle("rgba(180,180,180,0.3)")
+    .anchor("bottom").add(pv.Label)
+      .text(function(d) { return d.year })
+      .textStyle("rgba(0,0,0,0.5)")
+      .textAngle(Math.PI/2);
+
+  vis.render();
+</script>

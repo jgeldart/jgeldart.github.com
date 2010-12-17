@@ -1,0 +1,203 @@
+---
+title: The Adoption of Renewable Energy in Europe
+subtitle: Primary Sources of Energy by Country
+published: true
+layout: default
+byline: false
+comments: true
+syntax_highlight: false
+ui: true
+protovis:
+- /data/eu-borders.js
+- /data/total-primary-energy.js
+---
+    <style>
+#fig {
+  position: relative;
+  width: 800px;
+  margin-top: 10px;
+}
+      
+     #yearSlider {
+  position: absolute;
+  left: 100px;
+  width: 610px;
+  margin-top: -13px;
+}
+       
+    </style>
+    <div id="fig">
+        <div id="container">
+          <div id="yearSlider"></div>
+        </div>
+        <script type="text/javascript">
+
+          total_primary_energy_production.forEach(function(row) {
+            row.total_production = parseFloat(row.total_production);
+            row.renewable_production = parseFloat(row.renewable_production);
+            row.nonrenewable_production = parseFloat(row.nonrenewable_production);
+          });
+
+          var eu_borders_nested = pv.nest(eu_borders).key(function(d) { return d.code; })
+            .rollup(function(v) { return v.map(function(d) { return d.code2; }); });
+          eu_borders_nested["GB"] = eu_borders_nested["UK"];
+
+          var countries = pv.nest(eu_borders).key(function(d) { return d.code; }).entries().map(function(d) { return { code: d.key == "UK" ? "GB" : d.key };  });
+
+          var country_data = pv.nest(total_primary_energy_production)
+            .key(function(d) { return d.year; })
+            .key(function(d) { return d.code; })
+            .rollup(function(v) { return v[0]; });
+
+
+          var minYear = pv.min(total_primary_energy_production, function(d) { return d.year; });
+          var maxYear = pv.max(total_primary_energy_production, function(d) { return d.year; });
+
+          var minPop = pv.min(total_primary_energy_production, function(d) { return d.population; });
+          var maxPop = pv.max(total_primary_energy_production, function(d) { return d.population; });
+
+          var minRenewable = pv.min(total_primary_energy_production, function(d) { var res = d.renewable_production / d.total_production; return isNaN(res) ? 0.00001 : res; });
+          var maxRenewable = pv.max(total_primary_energy_production, function(d) { var res = d.renewable_production / d.total_production; return isNaN(res) ? 0.00001 : res; });
+
+          var currentYear = minYear;
+
+          $("#yearSlider").slider({
+            min: minYear,
+            max: maxYear,
+            value: minYear,
+            slide: function(e, ui) {
+              currentYear = ui.value;
+              updateYear();
+              vis.render();
+            }
+          });
+
+          var i = 0,
+              mapMargin = 30,
+              w = 810,
+              h = 400,
+              scale = pv.Geo.scale().domain({lat: 69.9301, lng:-38.7813}, {lat: 31.5036, lng: 52.3828}).range(w, h);
+
+          var legendMargin = 20,
+              ease = null,
+              yearsMargin = 100;
+
+          var yearsScale = pv.Scale.linear()
+              .domain(minYear, maxYear)
+              .range(yearsMargin + 2, w - yearsMargin);
+
+          var legendScale = pv.Scale.linear()
+              .domain(14, 35)
+              .range(legendMargin, w - legendMargin);
+
+          var sizeScale = pv.Scale.linear()
+              .domain(minPop, maxPop)
+              .range(20,50);
+
+          var colorScale = pv.Scale.linear()
+              .domain(0.00001, maxRenewable)
+              .range("orange", "#3399ff");
+          
+          var nodes = [],
+              codeToNode = {},
+              links = [];
+
+          countries.forEach(function(c) {
+            if(country_data[currentYear][c.code]) {
+              var country = country_data[currentYear][c.code];
+              var coords = { lat: country.lat, lng: country.lng };
+              var x = scale(coords).x,
+                      y = scale(coords).y,
+                      pop = country.population,
+                      renewable = country.renewable_production / country.total_production,
+                      renewableProportion = isNaN(renewable) ? 0 : renewable;
+                      gdp = country.gdp,
+                      n = {x: x, y: y, p: {x: x, y: y}, r: sizeScale(pop), code:c.code, color:colorScale(renewableProportion)};
+                  nodes.push(n);
+                  codeToNode[c.code] = n;
+              var borders = eu_borders_nested[c.code];
+              borders.forEach(function(b) {
+                if (codeToNode[c.code] && codeToNode[b] && c.code != b) {
+                  var nodeA = codeToNode[c.code];
+                  var nodeB = codeToNode[b];
+                  links.push({sourceNode:nodeA, targetNode:nodeB, length:(nodeA.r + nodeB.r + 2)});
+                }
+              });
+            }
+          });
+
+          function updateYear() {
+            // nodes.forEach(function(n){ n.r = sizeScale(country_data[currentYear][n.code]); });
+            links.forEach(function(l){ l.length = (l.sourceNode.r + l.targetNode.r + 2); });
+            i = 0;
+            var stepSome = setInterval(function() {
+              if (i++ > 10) clearInterval(stepSome);
+              sim.step();
+              vis.render();
+            }, 20);
+          }
+          
+          var collisionConstraint = pv.Constraint.collision(function(d){ return d.r + 1; }),
+              positionConstraint = pv.Constraint.position(function(d){ return d.p; }),
+              linkConstraint = pv.Force.spring(100).links(links);
+
+          var sim = pv.simulation(nodes)
+              .constraint(collisionConstraint)
+              .constraint(positionConstraint)
+              .constraint(linkConstraint)
+              .force(pv.Force.drag());
+
+          var vis = new pv.Panel()
+              .width(w)
+              .height(h)
+              .top(50)
+              .bottom(30);
+
+          // Add the ticks and labels for the year slider
+          vis.add(pv.Rule)
+               .data(pv.range(minYear, maxYear + .1))
+               .left(yearsScale)
+               .height(4)
+               .top(-40)
+             .anchor("bottom").add(pv.Label);
+
+          var nodepanel = vis.add(pv.Panel)
+              .data(nodes)
+              .left(function(d){ return d.x; })
+              .top(function(d){ return d.y; });
+
+          nodepanel.add(pv.Wedge)
+              .data(function(d) { var c = country_data[currentYear][d.code]; var total = c.total_production; return [{prop: c.renewable_production / total, r: d.r}, {prop: 1.0 - (c.renewable_production / total), r: d.r}]; })
+                .left(0)
+                .top(0)
+                .visible(function(d) { return !isNaN(d.prop); })
+                .outerRadius(function(d){ return d.r; })
+                .angle(function(d){ return d.prop * 2 * Math.PI;})
+                .title(function(d) { return ["Renewable: ", "Non-Renewable: "][this.index] + (d.prop*100).toFixed(2) + "%"; })
+                .fillStyle(function(){ return ["#3399ff", "orange"][this.index]; })
+                .strokeStyle(null);
+
+          nodepanel.add(pv.Label)
+          .left(0)
+          .top(0)
+             .text(function(d){ return d.code; })
+              .textStyle("#fee")
+              .font(function(d){ return "bold " + (4*Math.log(d.r)).toFixed(0) + "px 'PT Sans'"; })
+              .textAlign("center")
+              .textBaseline("middle");
+
+          updateYear();
+          
+          ease = setInterval(function() {
+            if (i++ > 140) {
+              clearInterval(ease);
+              ease = null;
+            }
+            sim.step();
+            positionConstraint.alpha(Math.pow(.7, i + 2) + .03);
+            linkConstraint.damping(Math.pow(.7, i + 2) + .03);
+            vis.render();
+          }, 42);
+          
+        </script>
+    </div>

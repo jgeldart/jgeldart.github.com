@@ -30,6 +30,7 @@ protovis:
         <div id="container">
           <div id="yearSlider"></div>
         </div>
+        <div id="vis"></div>
         <script type="text/javascript">
 
           total_primary_energy_production.forEach(function(row) {
@@ -148,6 +149,7 @@ protovis:
               .force(pv.Force.drag());
 
           var vis = new pv.Panel()
+              .canvas("vis")
               .width(w)
               .height(h)
               .top(50)

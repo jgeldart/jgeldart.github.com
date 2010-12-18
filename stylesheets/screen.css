@@ -655,7 +655,7 @@ p.data_source {
   line-height: 2em;
   margin-top: 0em;
   margin-bottom: 2em;
-  color: #cccccc;
+  color: #7f7f7f;
 }
 /* line 200, ../src/screen.scss */
 p.data_source::before {

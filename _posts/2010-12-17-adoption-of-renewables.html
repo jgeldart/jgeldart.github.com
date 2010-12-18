@@ -54,8 +54,8 @@ protovis:
           var minYear = pv.min(total_primary_energy_production, function(d) { return d.year; });
           var maxYear = pv.max(total_primary_energy_production, function(d) { return d.year; });
 
-          var minPop = pv.min(total_primary_energy_production, function(d) { return d.population; });
-          var maxPop = pv.max(total_primary_energy_production, function(d) { return d.population; });
+          var minPop = pv.min(total_primary_energy_production, function(d) { return isNaN(d.total_production) ? 0 : d.total_production; });
+          var maxPop = pv.max(total_primary_energy_production, function(d) { return isNaN(d.total_production) ? 0 : d.total_production; });
 
           var minRenewable = pv.min(total_primary_energy_production, function(d) { var res = d.renewable_production / d.total_production; return isNaN(res) ? 0.00001 : res; });
           var maxRenewable = pv.max(total_primary_energy_production, function(d) { var res = d.renewable_production / d.total_production; return isNaN(res) ? 0.00001 : res; });
@@ -87,18 +87,10 @@ protovis:
               .domain(minYear, maxYear)
               .range(yearsMargin + 2, w - yearsMargin);
 
-          var legendScale = pv.Scale.linear()
-              .domain(14, 35)
-              .range(legendMargin, w - legendMargin);
-
           var sizeScale = pv.Scale.linear()
               .domain(minPop, maxPop)
               .range(20,50);
 
-          var colorScale = pv.Scale.linear()
-              .domain(0.00001, maxRenewable)
-              .range("orange", "#3399ff");
-          
           var nodes = [],
               codeToNode = {},
               links = [];
@@ -109,11 +101,10 @@ protovis:
               var coords = { lat: country.lat, lng: country.lng };
               var x = scale(coords).x,
                       y = scale(coords).y,
-                      pop = country.population,
                       renewable = country.renewable_production / country.total_production,
                       renewableProportion = isNaN(renewable) ? 0 : renewable;
-                      gdp = country.gdp,
-                      n = {x: x, y: y, p: {x: x, y: y}, r: sizeScale(pop), code:c.code, color:colorScale(renewableProportion)};
+                      total = isNaN(country.total_production) ? 0 : country.total_production
+                      n = {x: x, y: y, p: {x: x, y: y}, r: sizeScale(total), code:c.code};
                   nodes.push(n);
                   codeToNode[c.code] = n;
               var borders = eu_borders_nested[c.code];
@@ -128,7 +119,7 @@ protovis:
           });
 
           function updateYear() {
-            // nodes.forEach(function(n){ n.r = sizeScale(country_data[currentYear][n.code]); });
+            nodes.forEach(function(n){ var total = country_data[currentYear][n.code].total_production; n.r = sizeScale(isNaN(total) ? 0 : total); });
             links.forEach(function(l){ l.length = (l.sourceNode.r + l.targetNode.r + 2); });
             i = 0;
             var stepSome = setInterval(function() {
@@ -176,15 +167,15 @@ protovis:
                 .outerRadius(function(d){ return d.r; })
                 .angle(function(d){ return d.prop * 2 * Math.PI;})
                 .title(function(d) { return ["Renewable: ", "Non-Renewable: "][this.index] + (d.prop*100).toFixed(2) + "%"; })
-                .fillStyle(function(){ return ["#3399ff", "orange"][this.index]; })
+                .fillStyle(function(){ return ["#76A3FC", "#FFBA37"][this.index]; })
                 .strokeStyle(null);
 
           nodepanel.add(pv.Label)
           .left(0)
           .top(0)
              .text(function(d){ return d.code; })
-              .textStyle("#fee")
-              .font(function(d){ return "bold " + (4*Math.log(d.r)).toFixed(0) + "px 'PT Sans'"; })
+              .textStyle("#433")
+              .font(function(d){ return "bold " + (5*Math.log(d.r)).toFixed(0) + "px 'Calibri', 'Helvetica Neue', sans-serif"; })
               .textAlign("center")
               .textBaseline("middle");
 
@@ -203,3 +194,16 @@ protovis:
           
         </script>
     </div>
+    <p class="data_source">
+      <a href="http://epp.eurostat.ec.europa.eu/">Eurostat</a> (tables <a href="http://ec.europa.eu/eurostat/product?code=ten00076&mode=view">ten00076</a> and <a href="http://ec.europa.eu/eurostat/product?code=ten00081&mode=view">ten00081</a>), <a href="http://www.freebase.com/">Freebase</a>.
+    </p>
+    <p>
+      This visualisation shows the adoption of renewable energy sources within the EU over the period 1997 to 2008.
+      The orange wedges show the percentage of primary (i.e. produced within the country) energy that comes from
+      non-renewable sources. The blue wedges that which is renewable. The size of each pie chart is proportional
+      to the amount of primary energy produced within tha country.
+    </p>
+    <p>
+      It was written using <a href="http://vis.stanford.edu/protovis/">Protovis</a>, with the code based on the <a href="http://vis.stanford.edu/protovis/ex/cartogram.html">Dorling cartogram example</a>. The data was merged
+      and exported to JSON using <a href="http://code.google.com/p/google-refine/">Google Refine</a>.
+    </p>

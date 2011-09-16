@@ -13,11 +13,11 @@ layout: cv
   <h2>Profile</h2>
   </header>
   <p>
-    I am a flexible and ambitious developer with <em>strong experience in software engineering, architecture and business 
-    analysis</em>. I have <em>driven and managed the adoption of agile best-practices</em> (such as Scrum) and 
-    <em>designed and implemented full-lifecycle development and deployment methodologies</em> that are compatible with
-    both agile software engineering and ITIL. I have an <em>extremely strong practical and theoretical 
-    understanding of web application design and implementation</em>. I enjoy applying both tried-and-true and 
+    I am a flexible and ambitious developer with strong experience in software engineering, architecture and business 
+    analysis. I have driven and managed the adoption of agile best-practices (such as Scrum) and 
+    designed and implemented full-lifecycle development and deployment methodologies that are compatible with
+    both agile software engineering and ITIL. I have an extremely strong practical and theoretical 
+    understanding of web application design and implementation. I enjoy applying both tried-and-true and 
     cutting-edge ideas to analyse and solve difficult practical customer problems and dealing directly with clients.
   </p>
 </section>
@@ -110,14 +110,14 @@ layout: cv
       <h3>Business</h3>
     </header>
     <ul rel="doac:skill">
-      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Sales</li>
-      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Customer Support</li>
-      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Project Management</li>
-      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Team Building</li>
       <li typeof="doac:OrganizationalSkill" property="dcterms:title">Business Analysis</li>
       <li typeof="doac:OrganizationalSkill" property="dcterms:title">Software Architecture</li>
+      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Project Management</li>
+      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Team Building</li>
       <li typeof="doac:OrganizationalSkill" property="dcterms:title">Reporting</li>
       <li typeof="doac:OrganizationalSkill" property="dcterms:title">Chairmanship</li>
+      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Sales</li>
+      <li typeof="doac:OrganizationalSkill" property="dcterms:title">Customer Support</li>
     </ul>
   </section>
 </section>
@@ -144,15 +144,26 @@ layout: cv
     <p property="doac:activity">
       Responsible for project management, development, business analysis and architecture on external and internal 
       software projects covering a wide range of domains and implementation technologies including <em>Android</em>, 
-      <em>Google App Engine</em>, <em>Django</em> and <em>Elastic Beanstalk</em>. Designed, implemented and <em>drove 
+      <em>Google App Engine</em>, <em>Django</em> and <em>Elastic Beanstalk</em>. 
+    </p>  
+    <p property="doac:activity">
+      Designed, implemented and <em>drove 
       adoption of an agile software development process and business model</em> that matched Cloudreach's unique 
       requirements whilst bringing the benefits of best practices such as <em>TDD</em>, <em>BDD</em> and 
       <em>continuous integration</em>. This <em>helped develop a £250,000 line of business</em> for Cloudreach from
-      nothing over six months. Carried out pre-sales work and evangelism of Cloudreach's development process with 
-      potential clients. Architected an end-to-end service management infrastructure for running Cloudreach's operations 
-      business and devised an agile approach to large-scale migrations of infrastructure to the cloud. Carried out 
-      business analysis, project management and enterprise architecture for some of the UK's best known companies, 
-      including the Press Association and Financial Times.
+      nothing over six months. 
+    </p>
+    <p property="doac:activity">
+      Carried out <em>pre-sales work and evangelism</em> of Cloudreach's development process with 
+      potential clients. 
+    </p>
+    <p property="doac:activity">
+      <em>Architected an end-to-end service management infrastructure</em> for running Cloudreach's operations 
+      business and <em>devised an agile approach to large-scale migrations of infrastructure</em> to the cloud. 
+    </p>
+    <p property="doac:activity">
+      Carried out business analysis, project management and enterprise architecture for some of the UK's best known 
+      companies, including the <em>Press Association</em> and <em>Financial Times</em>.
     </p>
   </section>
   <section class="experience" typeof="doac:Experience">
@@ -281,6 +292,60 @@ layout: cv
     </p>
   </section>
 </section>
+<section id="sec-education" rel="doac:education">
+  <header>
+    <h2>Education</h2>
+  </header>
+  <section typeof="doac:Education">
+    <header>
+      <hgroup>
+      <h3>
+        <span property="doac:level">Ph.D</span> 
+        in 
+        <span property="doac:subject">Computer Science</span>
+      </h3>
+      <h4>
+        <span property="foaf:organization">Durham University</span>
+        &mdash;
+        <span property="doac:date-starts" datatype="xsd:gYear">2005</span> 
+        &ndash; 
+        present
+      </h4>
+      </hgroup>
+    </header>
+    <p property="dcterms:description">
+    Research into the linguistic and cognitive factors of Semantic Web 
+    Service matchmaking, using insights from cognitive linguistics,
+    category theory and evidential logics. Also performed secondary
+    research into the nature of the Web as a self-modifying, active
+    system and how to harness this nature.
+    </p>
+  </section>
+  <section typeof="doac:Education">
+    <header>
+      <hgroup>
+      <h3>
+        <span property="doac:level">BSc (Upper Second Class)</span> 
+        in 
+        <span property="doac:subject">Artificial Intelligence</span>
+      </h3>
+      <h4>
+        <span property="foaf:organization">Durham University</span>
+        &mdash;
+        <span property="doac:date-starts" datatype="xsd:gYear">2001</span> 
+        &ndash; 
+        <span property="doac:date-ends" datatype="xsd:gYear">2005</span>
+      </h4>
+      </hgroup>
+    </header>
+    <p property="dcterms:description">
+    Specialised in programming language theory and the Semantic Web.
+    Dissertation carried out original research into so-called <em>
+      semantic desktops</em>, looking at techniques for mapping
+    between information models.
+    </p>
+  </section>
+</section>
 <section id="sec-selected-publications" rev="foaf:maker">
   <header>
     <h2>Selected Publications</h2>
@@ -379,60 +444,6 @@ layout: cv
       The system allowed the data models of different applications, 
       running in different processes, to be combined into a single, 
       shared model using a semantics based on <em>RDF</em> and <em>OWL</em>.
-    </p>
-  </section>
-</section>
-<section id="sec-education" rel="doac:education">
-  <header>
-    <h2>Education</h2>
-  </header>
-  <section typeof="doac:Education">
-    <header>
-      <hgroup>
-      <h3>
-        <span property="doac:level">Ph.D</span> 
-        in 
-        <span property="doac:subject">Computer Science</span>
-      </h3>
-      <h4>
-        <span property="foaf:organization">Durham University</span>
-        &mdash;
-        <span property="doac:date-starts" datatype="xsd:gYear">2005</span> 
-        &ndash; 
-        present
-      </h4>
-      </hgroup>
-    </header>
-    <p property="dcterms:description">
-    Research into the linguistic and cognitive factors of Semantic Web 
-    Service matchmaking, using insights from cognitive linguistics,
-    category theory and evidential logics. Also performed secondary
-    research into the nature of the Web as a self-modifying, active
-    system and how to harness this nature.
-    </p>
-  </section>
-  <section typeof="doac:Education">
-    <header>
-      <hgroup>
-      <h3>
-        <span property="doac:level">BSc (Upper Second Class)</span> 
-        in 
-        <span property="doac:subject">Artificial Intelligence</span>
-      </h3>
-      <h4>
-        <span property="foaf:organization">Durham University</span>
-        &mdash;
-        <span property="doac:date-starts" datatype="xsd:gYear">2001</span> 
-        &ndash; 
-        <span property="doac:date-ends" datatype="xsd:gYear">2005</span>
-      </h4>
-      </hgroup>
-    </header>
-    <p property="dcterms:description">
-    Specialised in programming language theory and the Semantic Web.
-    Dissertation carried out original research into so-called <em>
-      semantic desktops</em>, looking at techniques for mapping
-    between information models.
     </p>
   </section>
 </section>
@@ -603,7 +614,7 @@ layout: cv
     <span rel="gr:hasPriceSpecification">
       <span typeof="gr:UnitPriceSpecification">
         <span property="gr:hasCurrency" content="GBP"></span>
-        <span property="gr:hasCurrencyValue" content="250"></span>
+        <span property="gr:hasCurrencyValue" content="450"></span>
         <span property="gr:hasUnitOfMeasurement" content="DAY"></span>
       </span>
     </span>
